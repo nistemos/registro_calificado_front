@@ -5,6 +5,10 @@ import { LoginComponent } from './login.component';
 export default [
   {
     path: '',
-    component: LoginComponent,
-  }
+    loadComponent: () =>
+      import('./login.component').then(
+        (m) => m.LoginComponent
+      ),
+    title: 'Inicio de sessión'
+  },
 ] as Routes;
