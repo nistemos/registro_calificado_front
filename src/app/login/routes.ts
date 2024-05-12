@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login.component';
 
 
 export default [
@@ -10,5 +9,5 @@ export default [
         (m) => m.LoginComponent
       ),
     title: 'Inicio de sessión'
-  },
+  }
 ] as Routes;
