@@ -15,7 +15,7 @@ export class AuthService {
     // Establece los encabezados CORS necesarios
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Origin': 'localhost:3000/users/login', // Reemplaza esto con la URL de tu aplicación Angular
+      'Origin': 'localhost:4200/login', // Reemplaza esto con la URL de tu aplicación Angular
       'Access-Control-Request-Method': 'POST',
       'Access-Control-Request-Headers': 'Content-Type'
     });
