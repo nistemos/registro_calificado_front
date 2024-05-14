@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { Auth, AuthResult } from '../../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl: string = 'localhost:3000/users/login';
-
+  path: string = environment.apiUrlBase+'/users/login';
   constructor(private http: HttpClient) { }
 
-  public enviarDatos(datos: any): Observable<any> {
+  public enviarDatos(datos: Auth): Observable<AuthResult> {
     // Establece los encabezados CORS necesarios
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Origin': 'localhost:4200/login', // Reemplaza esto con la URL de tu aplicación Angular
-      'Access-Control-Request-Method': 'POST',
-      'Access-Control-Request-Headers': 'Content-Type'
-    });
-
     // Envía la solicitud POST a la API
-    return this.http.post<any>(this.apiUrl, datos, { headers });
+    return this.http.post<AuthResult>(this.path, datos);
   }
 }
