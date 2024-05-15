@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ToastService } from '../../core/services/toast.service';
 import { Toast, ToastType } from '../../interfaces/toast';

@@ -4,7 +4,10 @@ export interface Auth {
 }
 
 export interface AuthResult{
-  errorType: string;
-  statusCode: number;
-  message: string;
+  mmessage: string;
+  data:{
+    token: string;
+    user:{}
+  };
+  status: number;
 }

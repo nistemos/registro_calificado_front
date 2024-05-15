@@ -16,11 +16,11 @@ import { ToastifyComponent } from "../components/toastify/toastify.component";
     ]
 })
 export class LoginComponent {
-
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
+errorMessage: any;
 
   onSubmit() {
     throw new Error('Method not implemented.');
