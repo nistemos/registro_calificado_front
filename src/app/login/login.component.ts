@@ -5,12 +5,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ToastService } from '../core/services/toast.service';
 import { ToastType } from '../interfaces/toast';
 import { ToastifyComponent } from '../components/toastify/toastify.component';
+import { ErrorMessageComponent } from '../components/error-message/error-message.component';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     NgOptimizedImage,
     ReactiveFormsModule,
+    ErrorMessageComponent,
     ToastifyComponent
   ],
   templateUrl: './login.component.html',

@@ -43,6 +43,8 @@ export class AuthService {
     return this.http.post<AuthResult>(this.path, datos)
     .pipe(
       tap(response => {
+        console.log(response.status);
+
         // Si la solicitud de inicio de sesión es exitosa, actualiza el estado de autenticación a true
         if (response.status == 200) { // Verifica si la respuesta es exitosa
           this.isLoggedInVar = true;
@@ -53,3 +55,4 @@ export class AuthService {
     );
   }
 }
+// cargo test initial developer junior l2

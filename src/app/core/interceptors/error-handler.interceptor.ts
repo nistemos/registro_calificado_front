@@ -12,7 +12,6 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           errorMessage = `Error: ${error.error.message}`;
         } else {
           // Error de servidor
-          alert(error.error.message);
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
         // Propaga el error para que el componente que hizo la solicitud también lo maneje

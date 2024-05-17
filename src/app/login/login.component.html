@@ -34,6 +34,9 @@
                     </div>
                 </form>
             </div>
+            @if(errorMessage){
+            <app-error-message [errorMessage]="errorMessage"></app-error-message>
+            }
         </div>
     </div>
 </div>

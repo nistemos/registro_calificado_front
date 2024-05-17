@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastifyComponent } from "../components/toastify/toastify.component";
+import { ErrorMessageComponent } from "../components/error-message/error-message.component";
 
 
 
@@ -12,7 +13,8 @@ import { ToastifyComponent } from "../components/toastify/toastify.component";
     styleUrl: './login.component.sass',
     imports: [
         NgOptimizedImage,
-        ToastifyComponent
+        ToastifyComponent,
+        ErrorMessageComponent
     ]
 })
 export class LoginComponent {
