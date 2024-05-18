@@ -1,0 +1,15 @@
+<div class="bg-white shadow-md rounded-lg overflow-hidden relative folder" (click)="onSelect()">
+    <div class="p-6">
+        <div class="flex items-center justify-between">
+            <svg class="w-10 h-10 text-yellow-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M10 4H2v16h20V6H12l-2-2z" />
+            </svg>
+            <span class="ml-4 text-gray-800 font-medium">{{ folderName }}</span>
+            <div class="flex items-center space-x-2">
+                <svg (click)="onDelete(); $event.stopPropagation()" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
