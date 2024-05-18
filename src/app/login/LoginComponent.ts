@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastifyComponent } from "../components/toastify/toastify.component";
 import { ErrorMessageComponent } from "../components/error-message/error-message.component";
+import { FooterComponent } from "../components/footer/footer.component";
 
 
 
@@ -14,7 +15,8 @@ import { ErrorMessageComponent } from "../components/error-message/error-message
     imports: [
         NgOptimizedImage,
         ToastifyComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        FooterComponent
     ]
 })
 export class LoginComponent {

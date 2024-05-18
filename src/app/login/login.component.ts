@@ -6,6 +6,7 @@ import { ToastService } from '../core/services/toast.service';
 import { ToastType } from '../interfaces/toast';
 import { ToastifyComponent } from '../components/toastify/toastify.component';
 import { ErrorMessageComponent } from '../components/error-message/error-message.component';
+import { FooterComponent } from '../components/footer/footer.component';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,7 +14,8 @@ import { ErrorMessageComponent } from '../components/error-message/error-message
     NgOptimizedImage,
     ReactiveFormsModule,
     ErrorMessageComponent,
-    ToastifyComponent
+    ToastifyComponent,
+    FooterComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
