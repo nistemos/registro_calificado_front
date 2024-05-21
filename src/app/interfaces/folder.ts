@@ -1,6 +1,8 @@
-export interface createFolderProgram{
+export interface createFolder{
   name: string;
   description: string;
+  programsYear?: number;
+  program?: number;
 }
 
 export interface program{
@@ -16,5 +18,24 @@ export interface getFolder{
     totalPages: number,
     totalPrograms: number
   },
+  status: number
+}
+
+export interface updateFolder{
+  id: number,
+  data:{
+    name: string,
+    description: string
+  },
+  status: number
+}
+
+export interface deleteFolder{
+  id: number
+}
+
+export interface deleteFolderResponse{
+  message: string,
+  data: null,
   status: number
 }

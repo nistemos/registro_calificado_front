@@ -13,12 +13,13 @@ import { program } from '../../interfaces/folder';
 export class ProgramsComponent implements OnInit {
   title: string = 'PROGRAMAS';
   programs!:program[];
+  pathPartial = 'programs';
 
   constructor(private folderService: FolderService){
   }
 
   ngOnInit() {
-    this.folderService.getFolder(1, 1000).subscribe(response=>{
+    this.folderService.getFolder(1, 1000, this.pathPartial).subscribe(response=>{
       this.programs = response.data.programs;
     })
   }

@@ -14,7 +14,9 @@
           Nuevo
         </button>
         <!--Modal-->
-        <app-modal [isOpen]="isModalOpen" [folder]="folder" (close)="closeModal()"></app-modal>
+        @if(isModalOpen){
+        <app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [title]="title" [pathPartial]="pathPartial" (close)="closeModal()"></app-modal>
+        }
         <!-- User -->
         <ul class="md:hidden items-center flex flex-wrap list-none">
             <li class="inline-block relative">

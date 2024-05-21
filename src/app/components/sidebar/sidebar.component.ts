@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { faPlus, faDesktop, faUser, faUsers, faCalendarDays, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
 import { ModalComponent } from "../modal/modal.component";
 
@@ -21,7 +21,12 @@ export class SidebarComponent implements OnInit {
   faSchool = faSchool;
   collapseShow = "hidden";
   isModalOpen = false;
-  folder: string = "PROGRAMAS";
+  title!: string;
+  folder!: string;
+  action!: string;
+  pathPartial!: string;
+
+  constructor(private router: Router){}
 
   ngOnInit() {}
 
@@ -31,6 +36,23 @@ export class SidebarComponent implements OnInit {
 
   openModal(): void {
     this.isModalOpen = true;
+    // Obtener la URL actual
+  const currentUrl = this.router.url;
+    if(currentUrl == "/dashboard/programs"){
+      this.title = "Programa"
+      this.folder = "PROGRAMA";
+      this.action = "create";
+    }
+    if(currentUrl == "/dashboard/courses"){
+      this.title = "Curso"
+      this.folder = "CURSO";
+      this.action = "create";
+    }
+    if(currentUrl == "/dashboard/academic-period"){
+      this.title = "Período Académico"
+      this.folder = "PERIODO ACADÉMICO";
+      this.action = "create";
+    }
   }
 
   closeModal(): void {
