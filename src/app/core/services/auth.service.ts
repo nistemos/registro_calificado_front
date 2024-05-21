@@ -60,20 +60,20 @@ export class AuthService {
           this.saveToLocalStorage('token', response.data.token);
           Swal.fire({
             icon: 'success',
-            title: 'Login Successful',
+            title: 'Inicio de sesión exitoso',
             text: response.mmessage
           });
           this.router.navigateByUrl('/dashboard');
         }
       }),
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'An unknown error occurred!';
+        let errorMessage = '¡Un error desconocido ocurrió!';
         if (error.status === 401) {
-          errorMessage = 'Unauthorized user, incorrect password.';
+          errorMessage = 'Usuario no autorizado, contraseña incorrecta.';
         }
         Swal.fire({
           icon: 'error',
-          title: 'Login Failed',
+          title: 'Error de inicio de sesion',
           text: errorMessage
         });
         throw error;
