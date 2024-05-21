@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch POST</title>
+</head>
+<body>
+  <button onclick="realizarSolicitud()">Realizar Solicitud</button>
+
+  <script>
+    function realizarSolicitud() {
+      fetch('http://localhost:3000/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: 'andrres017@gmail.com',
+          clave: '123456789'
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Respuesta del servidor:', data);
+        alert('Respuesta del servidor: ' + JSON.stringify(data));
+      })
+      .catch(error => {
+        console.error('Se produjo un error:', error);
+        alert('Se produjo un error: ' + error.message);
+      });
+    }
+  </script>
+</body>
+</html>
