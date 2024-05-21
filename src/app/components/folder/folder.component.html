@@ -2,6 +2,6 @@
     <div class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-row justify-between leading-normal shadow-md hover:shadow-lg hover:cursor-pointer">
         <fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faFolder"></fa-icon>
         <p class="text-sm text-gray-600 flex items-center pr-5">{{ program.name }}</p>
-        <fa-icon class="fas fa-tv mr-2 text-sm hover:bg-gray-100 p-1" [icon]="faEllipsisVertical"></fa-icon>
+        <fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faEllipsisVertical" (click)="dropDown()"></fa-icon>
     </div>
 </div>

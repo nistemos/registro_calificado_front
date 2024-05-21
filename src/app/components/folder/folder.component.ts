@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFolder, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { program } from '../../interfaces/folder';
@@ -15,5 +15,14 @@ export class FolderComponent implements OnInit {
   faFolder = faFolder;
   faEllipsisVertical = faEllipsisVertical;
   @Input() program!:program;
+
+  constructor(){}
+
   ngOnInit(): void {}
+
+  dropDown(){
+    console.log("Hola mundo");
+
+  }
+
 }
