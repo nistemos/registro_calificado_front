@@ -8,27 +8,28 @@ import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  path: string = environment.apiUrlBase+'/users/login';
+  path: string = environment.apiUrlBase + '/users/login';
   private isLoggedInVar: boolean = false;
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router) { }
+
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {
+    this.checkToken();
+  }
 
   // Método para verificar si el usuario está autenticado
   isLoggedIn(): boolean {
-    // Aquí podrías implementar la lógica para verificar si el usuario está autenticado
-    // Podrías verificar si hay un token en el almacenamiento local, por ejemplo
     return this.isLoggedInVar;
   }
 
   // Método para cerrar sesión
   logout(): void {
-    // Aquí podrías implementar la lógica para cerrar sesión
-    // Por ejemplo, podrías eliminar el token de autenticación del almacenamiento local y establecer isLoggedInVar en false
     this.isLoggedInVar = false;
     this.localStorageService.clear();
   }
@@ -38,21 +39,28 @@ export class AuthService {
   }
 
   retrieveFromLocalStorage(token: string) {
-    const value = this.localStorageService.getItem(token);
+    return this.localStorageService.getItem(token);
+  }
+
+  private checkToken(): void {
+    const token = this.retrieveFromLocalStorage('token');
+    if (token) {
+      this.isLoggedInVar = true;
+    } else {
+      this.isLoggedInVar = false;
+    }
   }
 
   public enviarDatos(datos: Auth): Observable<any> {
-    // Envía la solicitud POST a la API
     return this.http.post<any>(this.path, datos).pipe(
       tap(response => {
-        // Si la solicitud de inicio de sesión es exitosa, actualiza el estado de autenticación a true
-        if (response.status == 200) { // Verifica si la respuesta es exitosa
+        if (response.status == 200) {
           this.isLoggedInVar = true;
           this.saveToLocalStorage('token', response.data.token);
           Swal.fire({
             icon: 'success',
             title: 'Login Successful',
-            text: response.mmessage // Utilizar 'mmessage' en lugar de 'message'
+            text: response.mmessage
           });
           this.router.navigateByUrl('/dashboard');
         }
