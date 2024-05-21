@@ -1,0 +1,9 @@
+<div class="flex flex-wrap mt-4">
+    <div class="w-full mb-12 px-4">
+        hola mundo @if(programs && programs.length > 0){
+        <app-card-folders [title]="title" [programs]="programs"></app-card-folders>
+        } @else{
+        <app-card-folders [title]="title"></app-card-folders>
+        }
+    </div>
+</div>
