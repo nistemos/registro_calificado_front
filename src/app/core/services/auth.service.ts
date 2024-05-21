@@ -32,6 +32,7 @@ export class AuthService {
   logout(): void {
     this.isLoggedInVar = false;
     this.localStorageService.clear();
+    this.router.navigateByUrl('/');
   }
 
   saveToLocalStorage(token: string, value: string) {
