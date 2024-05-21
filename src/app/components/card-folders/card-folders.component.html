@@ -8,10 +8,10 @@
             </div>
         </div>
     </div>
-    <div class="block w-full overflow-x-auto bg-gray-50">
-        <div class="flex flex-row justify-center">
+    <div class="block w-full bg-gray-50">
+        <div class="flex flex-wrap">
             @for (program of programs; track program.id){
-            <app-folder [program]="program"></app-folder>
+            <app-folder class="justify-start" [program]="program"></app-folder>
             }
 
         </div>

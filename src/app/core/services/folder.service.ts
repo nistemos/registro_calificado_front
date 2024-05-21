@@ -15,9 +15,14 @@ export class FolderService {
   }
 
   public createFolder(datos:createFolderProgram): Observable<getFolder>{
-    return this.http.post<getFolder>(this.path, datos).pipe(
+    if(!this.getToken){
+      return new Observable();
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    return this.http.post<getFolder>(this.path, datos, { headers }).pipe(
       tap(response => {
-        console.log(response);
       })
     );
   }

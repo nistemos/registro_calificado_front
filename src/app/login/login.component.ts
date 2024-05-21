@@ -45,7 +45,6 @@ export class LoginComponent {
       const formData = this.loginForm.value;
       this.AuthService.enviarDatos(formData)
       .subscribe(response=>{
-        alert("Inicio de sesion exitoso");
       })
     }
   }

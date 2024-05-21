@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FolderComponent } from "../folder/folder.component";
 import { program } from '../../interfaces/folder';
 
@@ -12,7 +12,29 @@ import { program } from '../../interfaces/folder';
 export class CardFoldersComponent implements OnInit {
   @Input() title!:string;
   @Input() programs!:program[];
+  dropdownPopoverShow = false;
 
   ngOnInit(): void {
   }
+
+  // @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef: ElementRef;
+  // @ViewChild("popoverDropdownRef", { static: false })
+  // popoverDropdownRef: ElementRef;
+  // ngAfterViewInit() {
+  //   createPopper(
+  //     this.btnDropdownRef.nativeElement,
+  //     this.popoverDropdownRef.nativeElement,
+  //     {
+  //       placement: "bottom-start",
+  //     }
+  //   );
+  // }
+  // toggleDropdown(event) {
+  //   event.preventDefault();
+  //   if (this.dropdownPopoverShow) {
+  //     this.dropdownPopoverShow = false;
+  //   } else {
+  //     this.dropdownPopoverShow = true;
+  //   }
+  // }
 }

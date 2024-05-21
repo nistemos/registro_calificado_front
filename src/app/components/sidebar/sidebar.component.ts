@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit {
   faSchool = faSchool;
   collapseShow = "hidden";
   isModalOpen = false;
+  folder: string = "PROGRAMAS";
 
   ngOnInit() {}
 
