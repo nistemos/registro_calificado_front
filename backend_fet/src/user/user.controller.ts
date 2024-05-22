@@ -56,7 +56,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(new UserGuard(['admin','teacher']))
+  @UseGuards(new UserGuard(['admin']))
   @ApiResponse({ status: 200, description: 'User deleted.' })
   @ApiNotFoundResponse({ description: 'User not found.' })
   async remove(@Param('id') id: number){
