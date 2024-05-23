@@ -38,7 +38,6 @@ export class FolderService {
     if (program !== undefined && program !== null) {
       params = params.set('program', program.toString());
     }
-    console.log(params);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
