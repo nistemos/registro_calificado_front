@@ -39,7 +39,6 @@ export class SidebarComponent implements OnInit {
     this.isModalOpen = true;
     // Obtener la URL actual
   const currentUrl = this.router.url;
-  console.log(currentUrl);
 
     if(currentUrl == "/dashboard/programs"){
       this.title = "Programa"

@@ -39,18 +39,22 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     this.formFolder.patchValue(this.program);
-     // Usar observables para manejar cambios en la URL y parámetros de consulta
-     this.route.url.pipe(
-      map(segments => segments.map(segment => segment.path)),
-      map(paths => {
-        this.urlParts = paths;
-        // Verificar si hay parámetros de consulta
-        const hasQueryParams = Object.keys(this.route.snapshot.queryParams).length > 0;
-        // Si hay parámetros de consulta, obtener el penúltimo segmento, de lo contrario obtener el último
-        this.pathPartial = hasQueryParams ? this.urlParts[this.urlParts.length - 2] : this.urlParts[this.urlParts.length - 1];
+
+    // Usar observables para manejar cambios en la URL y parámetros de consulta
+    this.route.url.pipe(
+      map(segments => {
+          console.log('Segments:', segments);
+          return segments.map(segment => segment.path);
       })
-    ).subscribe();
-    console.log(this.pathPartial);
+  ).subscribe(paths => {
+      console.log('Paths:', paths);
+      this.urlParts = paths;
+
+      const hasQueryParams = Object.keys(this.route.snapshot.queryParams).length > 0;
+      this.pathPartial = hasQueryParams ? this.urlParts[this.urlParts.length - 2] : this.urlParts[this.urlParts.length - 1];
+
+      console.log(this.pathPartial);
+  });
 
   }
 
