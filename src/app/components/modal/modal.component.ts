@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { FolderService } from '../../core/services/folder.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { deleteFolder, program, updateFolder } from '../../interfaces/folder';
 import Swal from 'sweetalert2';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -29,7 +30,7 @@ export class ModalComponent implements OnInit {
   urlCurrent!: string;
   urlParts!:any;
 
-  constructor(private formBuilder: FormBuilder, private folderService: FolderService, private router: Router){
+  constructor(private formBuilder: FormBuilder, private folderService: FolderService, private router: Router, private route: ActivatedRoute){
     this.formFolder = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.maxLength(255)]],
@@ -38,11 +39,19 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     this.formFolder.patchValue(this.program);
-    this.urlCurrent = this.router.url;
-  // Dividir la URL en partes usando el caracter "/"
-  this.urlParts = this.urlCurrent.split('/');
-  // Obtener el último segmento de la URL
-  this.pathPartial = this.urlParts[this.urlParts.length - 1];
+     // Usar observables para manejar cambios en la URL y parámetros de consulta
+     this.route.url.pipe(
+      map(segments => segments.map(segment => segment.path)),
+      map(paths => {
+        this.urlParts = paths;
+        // Verificar si hay parámetros de consulta
+        const hasQueryParams = Object.keys(this.route.snapshot.queryParams).length > 0;
+        // Si hay parámetros de consulta, obtener el penúltimo segmento, de lo contrario obtener el último
+        this.pathPartial = hasQueryParams ? this.urlParts[this.urlParts.length - 2] : this.urlParts[this.urlParts.length - 1];
+      })
+    ).subscribe();
+    console.log(this.pathPartial);
+
   }
 
   closeModal(): void {

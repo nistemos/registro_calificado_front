@@ -14,7 +14,7 @@ export class FolderService {
     return localStorage.getItem('token');
   }
 
-  public createFolder(datos:createFolder, pathPartial: string): Observable<getFolder>{
+  public createFolder(datos:createFolder, pathPartial: string, id?:number): Observable<getFolder>{
     if(!this.getToken){
       return new Observable();
     }

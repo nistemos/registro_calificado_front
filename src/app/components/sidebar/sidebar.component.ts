@@ -39,17 +39,19 @@ export class SidebarComponent implements OnInit {
     this.isModalOpen = true;
     // Obtener la URL actual
   const currentUrl = this.router.url;
+  console.log(currentUrl);
+
     if(currentUrl == "/dashboard/programs"){
       this.title = "Programa"
       this.folder = "PROGRAMA";
       this.action = "create";
     }
-    if(currentUrl == "/dashboard/courses"){
+    if(currentUrl.startsWith("/dashboard/courses/")){
       this.title = "Curso"
       this.folder = "CURSO";
       this.action = "create";
     }
-    if(currentUrl == "/dashboard/academic-period"){
+    if(currentUrl.startsWith("/dashboard/academic-period/")){
       this.title = "Período Académico"
       this.folder = "PERIODO ACADÉMICO";
       this.action = "create";

@@ -20,7 +20,7 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           // Error de servidor
 
           if (error.status === 404) {
-            errorMessage = `Usuario y/o Contraseña incorrectos`;
+            errorMessage = `Error: ${error.error.message}`;
             Swal.fire({
               icon: 'error',
               title: 'Error de inicio de sesion',
