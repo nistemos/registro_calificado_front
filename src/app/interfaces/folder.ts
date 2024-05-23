@@ -15,6 +15,7 @@ export interface getFolder{
   message: string,
   data: {
     programs: [],
+    courses: [],
     totalPages: number,
     totalPrograms: number
   },

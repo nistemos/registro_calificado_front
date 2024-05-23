@@ -14,7 +14,7 @@ export class FolderService {
     return localStorage.getItem('token');
   }
 
-  public createFolder(datos:createFolder, pathPartial: string): Observable<getFolder>{
+  public createFolder(datos:createFolder, pathPartial: string, id?:number): Observable<getFolder>{
     if(!this.getToken){
       return new Observable();
     }
@@ -38,7 +38,6 @@ export class FolderService {
     if (program !== undefined && program !== null) {
       params = params.set('program', program.toString());
     }
-    console.log(params);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`

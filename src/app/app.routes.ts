@@ -26,9 +26,4 @@ export const routes: Routes = [
         (m) => m.PageNotFoundComponent
       ),
   },
-  /*{
-    path: 'pruebaHolaMundo',
-    loadChildren: () =>
-      import('./hola-mundo/hola-mundo.component') as Promise<ItemsModule>,
-  },*/
 ];

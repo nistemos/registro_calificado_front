@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { Auth, AuthResult } from '../../interfaces/auth';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -20,7 +19,6 @@ export class AuthService {
     private localStorageService: LocalStorageService,
     private router: Router
   ) {
-    this.checkToken();
   }
 
   // Método para verificar si el usuario está autenticado
@@ -43,40 +41,23 @@ export class AuthService {
     return this.localStorageService.getItem(token);
   }
 
-  private checkToken(): void {
+  checkToken(): boolean {
     const token = this.retrieveFromLocalStorage('token');
     if (token) {
       this.isLoggedInVar = true;
     } else {
       this.isLoggedInVar = false;
     }
+    return this.isLoggedInVar;
   }
 
-  public enviarDatos(datos: Auth): Observable<any> {
-    return this.http.post<any>(this.path, datos).pipe(
+  public enviarDatos(datos: Auth): Observable<AuthResult> {
+    return this.http.post<AuthResult>(this.path, datos).pipe(
       tap(response => {
         if (response.status == 200) {
           this.isLoggedInVar = true;
           this.saveToLocalStorage('token', response.data.token);
-          Swal.fire({
-            icon: 'success',
-            title: 'Inicio de sesión exitoso',
-            text: response.mmessage
-          });
-          this.router.navigateByUrl('/dashboard');
         }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        let errorMessage = '¡Un error desconocido ocurrió!';
-        if (error.status === 401) {
-          errorMessage = 'Usuario no autorizado, contraseña incorrecta.';
-        }
-        Swal.fire({
-          icon: 'error',
-          title: 'Error de inicio de sesion',
-          text: errorMessage
-        });
-        throw error;
       })
     );
   }

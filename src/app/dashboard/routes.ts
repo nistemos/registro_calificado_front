@@ -47,7 +47,7 @@ export default [
             })
         },
         {
-          path: 'academic-period',
+          path: 'academic-period/:id',
           loadComponent: () =>
             import('../components/program-year/program-year.component').then(m => m.ProgramYearComponent).catch(err => {
               console.error('Error loading ProfileComponent', err);
