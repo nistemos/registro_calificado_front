@@ -14,13 +14,14 @@ export class FolderService {
     return localStorage.getItem('token');
   }
 
-  public createFolder(datos:createFolder, pathPartial: string, id?:number): Observable<getFolder>{
+  public createFolder(datos:createFolder, pathPartial: string): Observable<getFolder>{
     if(!this.getToken){
       return new Observable();
     }
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
+
     return this.http.post<getFolder>(this.path+'/'+pathPartial, datos, { headers }).pipe(
       tap(response => {
       })

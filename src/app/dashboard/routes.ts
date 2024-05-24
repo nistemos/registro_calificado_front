@@ -43,7 +43,7 @@ export default [
             }),
       },
       {
-        path: 'courses',
+        path: 'courses/:id',
         loadComponent: () =>
           import('../components/courses/courses.component')
             .then((m) => m.CoursesComponent)
