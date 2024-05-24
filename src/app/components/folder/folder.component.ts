@@ -5,7 +5,7 @@ import { program } from '../../interfaces/folder';
 import {NgClass} from '@angular/common';
 import { DropdownComponent } from "../dropdown/dropdown.component";
 import { SelectionService } from '../../core/services/selection.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-folder',
@@ -18,12 +18,17 @@ export class FolderComponent implements OnInit {
   faFolder = faFolder;
   faEllipsisVertical = faEllipsisVertical;
   nameFolder = "PROGRAMAS";
+  currentUrl!: string;
   @Input() program!:program;
   @Input() folder: any;
 
-  constructor(private selectionService: SelectionService, private router: Router){}
+  constructor(private selectionService: SelectionService, private router: Router, private route: ActivatedRoute){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUrl = this.router.url;
+    console.log(this.currentUrl);
+
+  }
 
   get selectedProgramId(): number | null {
     return this.selectionService.selectedProgramId;
@@ -38,8 +43,18 @@ export class FolderComponent implements OnInit {
   }
 
   openComponent(id: number): void {
-    // Navegar a la URL con el ID del programa
-    this.router.navigate(['dashboard/academic-period', id]);
+    console.log("Click");
+    this.currentUrl = this.router.url;
+    let idProgramYear = this.route.snapshot.paramMap.get('id');
+
+    if(this.currentUrl == "/dashboard/programs"){
+      // Navegar a la URL con el ID del programa
+      this.router.navigate(['dashboard/academic-period', id]);
+    }
+    if(this.currentUrl == "/dashboard/academic-period/"+idProgramYear){
+      // Navegar a la URL con el ID del programa
+      this.router.navigate(['/dashboard/courses', id]);
+    }
   }
 
 }
