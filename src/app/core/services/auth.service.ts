@@ -30,6 +30,11 @@ export class AuthService {
   logout(): void {
     this.isLoggedInVar = false;
     this.localStorageService.clear();
+    Swal.fire({
+      icon: 'success',
+      title: 'Cierre de sesión exitoso',
+      text: ""
+    });
     this.router.navigateByUrl('/');
   }
 
