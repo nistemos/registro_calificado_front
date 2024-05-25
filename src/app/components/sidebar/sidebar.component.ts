@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
   faCalendarDays = faCalendarDays;
   faSchool = faSchool;
   collapseShow = "hidden";
-  isModalOpen = false;
+  isModalOpen!: boolean;
   title!: string;
   folder!: string;
   action!: string;
@@ -31,22 +31,31 @@ export class SidebarComponent implements OnInit {
   id!: number;
   constructor(private router: Router, private AuthService: AuthService, private route: ActivatedRoute){}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isModalOpen = false;
+  }
 
   toggleCollapseShow(classes: string) {
     this.collapseShow = classes;
   }
 
   openModal(): void {
-    this.isModalOpen = true;
     // Obtener la URL actual
     let currentUrl = this.router.url;
     // Dividir la URL en partes usando el caracter "/"
     this.urlParts = currentUrl.split('/');
-    // Obtener el último segmento de la URL
-    this.id = this.urlParts[this.urlParts.length - 1];
 
-    if(!currentUrl.startsWith("/dashboard/programs/")){
+    if(this.urlParts[this.urlParts.length - 1] == "profile" || this.urlParts[this.urlParts.length - 1] == "users" || this.urlParts[this.urlParts.length - 1] == "dashboard"){
+      return;
+    }
+
+    if(this.urlParts[this.urlParts.length - 1] != "programs"){
+      // Obtener el último segmento de la URL
+      this.id = this.urlParts[this.urlParts.length - 1];
+    }
+
+    this.isModalOpen = true;
+    if(currentUrl.startsWith("/dashboard/programs")){
       this.title = "Programa"
       this.folder = "PROGRAMA";
       this.action = "create";

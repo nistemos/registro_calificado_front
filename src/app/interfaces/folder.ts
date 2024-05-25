@@ -3,6 +3,7 @@ export interface createFolder{
   description: string;
   programsYear: number;
   program: number;
+  credits: number;
 }
 
 export interface program{
@@ -29,6 +30,8 @@ export interface updateFolder{
     name: string,
     description: string,
     program: number;
+    programsYear: number;
+    credits: number;
   },
   status: number
 }

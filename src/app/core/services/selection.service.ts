@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class SelectionService {
 
-  selectedProgramId: number | null = null;
+  selectedId: number | null = null;
 
   constructor() { }
 
   selectComponent(id: number): void {
-    this.selectedProgramId = id;
+    this.selectedId = id;
   }
 
   clearSelection(): void {
-    this.selectedProgramId = null;
+    this.selectedId = null;
   }
 
 }

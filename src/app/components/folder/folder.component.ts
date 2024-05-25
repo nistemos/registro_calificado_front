@@ -27,15 +27,14 @@ export class FolderComponent implements OnInit {
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     console.log(this.currentUrl);
-
   }
 
-  get selectedProgramId(): number | null {
-    return this.selectionService.selectedProgramId;
+  get selectedId(): number | null {
+    return this.selectionService.selectedId;
   }
 
   selectComponent(id: number): void {
-    if (this.selectedProgramId === id) {
+    if (this.selectedId === id) {
       this.selectionService.clearSelection();
     } else {
       this.selectionService.selectComponent(id);
@@ -43,15 +42,11 @@ export class FolderComponent implements OnInit {
   }
 
   openComponent(id: number): void {
-    console.log("Click");
-    this.currentUrl = this.router.url;
-    let idProgramYear = this.route.snapshot.paramMap.get('id');
-
-    if(this.currentUrl == "/dashboard/programs"){
+    if(this.currentUrl.startsWith("/dashboard/programs")){
       // Navegar a la URL con el ID del programa
       this.router.navigate(['dashboard/academic-period', id]);
     }
-    if(this.currentUrl == "/dashboard/academic-period/"+idProgramYear){
+    if(this.currentUrl.startsWith("/dashboard/academic-period/")){
       // Navegar a la URL con el ID del programa
       this.router.navigate(['/dashboard/courses', id]);
     }

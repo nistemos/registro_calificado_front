@@ -28,7 +28,7 @@ export class FolderService {
     );
   }
 
-  public getFolder(page: number, limit: number, pathPartial: string, program?: number): Observable<getFolder> {
+  public getFolder(page: number, limit: number, pathPartial: string, program?: number, programYeardId?: number ): Observable<getFolder> {
     if (!this.getToken()) {
       return new Observable<getFolder>();
     }
@@ -38,6 +38,9 @@ export class FolderService {
       .set('limit', limit);
     if (program !== undefined && program !== null) {
       params = params.set('program', program.toString());
+    }
+    if (programYeardId !== undefined && programYeardId !== null) {
+      params = params.set('programYeardId', programYeardId.toString());
     }
 
     const headers = new HttpHeaders({
@@ -63,7 +66,6 @@ export class FolderService {
     if (!this.getToken()) {
       return new Observable();
     }
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });

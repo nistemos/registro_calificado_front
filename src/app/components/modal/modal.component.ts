@@ -24,21 +24,24 @@ export class ModalComponent implements OnInit {
   @Input() pathPartial!: string;
   @Input() id!: number;
   @Output() close = new EventEmitter<void>();
-  formFolder: FormGroup;
-  urlCurrent:any;
-  urlParts:any;
+  formFolder!: FormGroup;
+  showCreditos: boolean = false;
   createFormData!:createFolder;
-  updateFormData:updateFolder = { id: 0, data: {name:"", description:"", program: 0}, status:0 };
+  updateFormData:updateFolder = { id: 0, data: {name:"", description:"", program: 0, programsYear: 0, credits:0}, status:0 };
   deleteFormData:deleteFolder = { id:0 };
 
   constructor(private formBuilder: FormBuilder, private folderService: FolderService, private router: Router, private route: ActivatedRoute){
-    this.formFolder = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required, Validators.maxLength(255)]],
-    });
   }
 
   ngOnInit() {
+
+    this.showCreditos = this.pathPartial === 'courses';
+    this.formFolder = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(255)]],
+      ...(this.showCreditos && {credits: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]})
+    });
+
     this.formFolder.patchValue(this.program);
     if(this.action == 'update'){
       this.updateFormData.id = +this.program.id;
@@ -54,7 +57,12 @@ export class ModalComponent implements OnInit {
       switch (this.action) {
         case "create":
           this.createFormData = this.formFolder.value;
-          this.createFormData.program = +this.id;
+          if(this.pathPartial == "courses"){
+            this.createFormData.credits = +this.createFormData.credits;
+            this.createFormData.programsYear = +this.id;
+          }
+          if (this.pathPartial != "courses") this.createFormData.program = +this.id;
+
           this.folderService.createFolder(this.createFormData, this.pathPartial).subscribe(response=>{
             this.closeModal();
             this.formFolder.reset();
@@ -67,7 +75,11 @@ export class ModalComponent implements OnInit {
           break;
         case "update":
           this.updateFormData.data = this.formFolder.value;
-          this.updateFormData.data.program = +this.id;
+          if(this.pathPartial == "courses"){
+            this.updateFormData.data.credits = +this.updateFormData.data.credits;
+            this.updateFormData.data.programsYear = +this.id;
+          }
+          if (this.pathPartial != "courses") this.updateFormData.data.program = +this.id;
           this.folderService.updateFolder(this.updateFormData, this.pathPartial).subscribe(response=>{
             this.closeModal();
             this.formFolder.reset();

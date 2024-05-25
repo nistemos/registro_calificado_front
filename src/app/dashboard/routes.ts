@@ -62,6 +62,13 @@ export default [
               return null;
             }),
       },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('../page-not-found/page-not-found.component').then(
+            (m) => m.PageNotFoundComponent
+          ),
+      }
     ],
   },
 ] as Routes;
