@@ -21,13 +21,14 @@ export class FolderService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
+
     return this.http.post<getFolder>(this.path+'/'+pathPartial, datos, { headers }).pipe(
       tap(response => {
       })
     );
   }
 
-  public getFolder(page: number, limit: number, pathPartial: string, program?: number): Observable<getFolder> {
+  public getFolder(page: number, limit: number, pathPartial: string, program?: number, programYeardId?: number ): Observable<getFolder> {
     if (!this.getToken()) {
       return new Observable<getFolder>();
     }
@@ -38,7 +39,9 @@ export class FolderService {
     if (program !== undefined && program !== null) {
       params = params.set('program', program.toString());
     }
-    console.log(params);
+    if (programYeardId !== undefined && programYeardId !== null) {
+      params = params.set('programYeardId', programYeardId.toString());
+    }
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
@@ -63,7 +66,6 @@ export class FolderService {
     if (!this.getToken()) {
       return new Observable();
     }
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });

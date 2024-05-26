@@ -1,8 +1,9 @@
 export interface createFolder{
   name: string;
   description: string;
-  programsYear?: number;
-  program?: number;
+  programsYear: number;
+  program: number;
+  credits: number;
 }
 
 export interface program{
@@ -11,10 +12,12 @@ export interface program{
   description: string;
 }
 
+
 export interface getFolder{
   message: string,
   data: {
     programs: [],
+    courses: [],
     totalPages: number,
     totalPrograms: number
   },
@@ -25,7 +28,10 @@ export interface updateFolder{
   id: number,
   data:{
     name: string,
-    description: string
+    description: string,
+    program: number;
+    programsYear: number;
+    credits: number;
   },
   status: number
 }

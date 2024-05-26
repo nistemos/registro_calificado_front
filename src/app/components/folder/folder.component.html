@@ -1,7 +1,9 @@
-<div class="min-w-40 max-w-56 px-3 py-3" [attr.id]="program.id">
-    <div class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-row justify-between leading-normal shadow-md hover:shadow-lg hover:cursor-pointer">
+<div class="min-w-72 max-w-72 px-3 py-3" [id]="program.id" (click)="selectComponent(program.id)" (dblclick)="openComponent(program.id)">
+    <div [ngClass]="{'bg-selected': selectedId === program.id, 'bg-white': selectedId !== program.id}" class="rounded-b lg:rounded-b-none lg:rounded-r p-3 flex flex-row justify-between leading-normal shadow-md hover:shadow-lg hover:cursor-pointer">
         <fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faFolder"></fa-icon>
-        <p class="text-sm text-gray-600 flex items-center pr-5">{{ program.name }}</p>
-        <app-dropdown [program]="program" [folder]="folder"></app-dropdown>
+        <div class="flex-grow flex items-center pr-1 overflow-hidden">
+            <p class="text-sm text-gray-600 select-none" [title]="program.name">{{ program.name }}</p>
+        </div>
+        <app-dropdown [program]="program" [folder]="nameFolder"></app-dropdown>
     </div>
 </div>

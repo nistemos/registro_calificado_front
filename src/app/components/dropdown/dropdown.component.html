@@ -1,5 +1,5 @@
-<a class="text-blueGray-500 block py-1 px-3" href="#pablo" (click)="toggleDropdown($event)" #btnDropdownRef>
-    <fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faEllipsisVertical"></fa-icon>
+<a class="text-blueGray-500 block py-1 px-3" (click)="toggleDropdown($event)" #btnDropdownRef>
+    <fa-icon class="fas fa-tv mr-2 text-sm" [icon]="faEllipsisVertical"></fa-icon>
 </a>
 <div class="min-w-48 z-50" #popoverDropdownRef>
     <div class="bg-white text-base float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48" [class]="dropdownPopoverShow ? 'block' : 'hidden'">
@@ -9,5 +9,5 @@
     </div>
 </div>
 @if(isModalOpen){
-<app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [program]="program" (close)="closeModal()"></app-modal>
+<app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [program]="program" [pathPartial]="pathPartial" [id]="id" (close)="closeModal()"></app-modal>
 }

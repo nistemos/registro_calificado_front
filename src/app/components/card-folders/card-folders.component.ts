@@ -11,7 +11,7 @@ import { program } from '../../interfaces/folder';
 })
 export class CardFoldersComponent implements OnInit {
   @Input() title!:string;
-  @Input() programs!:program[];
+  @Input() programs?:program[];
   dropdownPopoverShow = false;
 
   ngOnInit(): void {

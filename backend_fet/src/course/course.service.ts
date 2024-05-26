@@ -51,7 +51,6 @@ export class CourseService {
 
     async create(createCourseDto: CreateCourseDto) {
         const existingCourse = await this.courseRepository.findOne({ where: { name:createCourseDto.name, programsYear:{id:createCourseDto.programsYear} } });
-        console.log(existingCourse, { where: { name:createCourseDto.name, programsYear:{id:createCourseDto.programsYear} } })
         if (existingCourse) {
             throw new HttpException('Course name already exists.', HttpStatus.CONFLICT);
         }
