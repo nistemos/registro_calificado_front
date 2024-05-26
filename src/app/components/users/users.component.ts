@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UsersService } from '../../core/services/user.service';
 import Swal from 'sweetalert2';
 
+
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -11,6 +13,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./users.component.sass']
 })
 export class UsersComponent implements OnInit {
+  get color(): string {
+    return this._color;
+  }
+  set color(color: string) {
+    this._color = color !== "light" && color !== "dark" ? "light" : color;
+  }
+  private _color = "light";
+  
   users: any[] = [];
   title = 'Lista de Usuarios';
 
