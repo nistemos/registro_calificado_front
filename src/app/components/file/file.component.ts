@@ -35,5 +35,8 @@ export class FileComponent implements OnInit {
         this.file = response.contents;
         console.log(this.file);
       });
+    this.route.params.subscribe((params) => {
+      this.routeNavigation = '/ ' + params['name'] + ' /';
+    });
   }
 }

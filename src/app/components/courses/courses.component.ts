@@ -18,6 +18,8 @@ export class CoursesComponent implements OnInit {
   pathPartial = 'courses';
   id!: number;
   courses?: program[];
+  nameprograma!: string;
+  periodoPrograma!: string;
 
   constructor(
     private folderService: FolderService,
@@ -31,5 +33,11 @@ export class CoursesComponent implements OnInit {
       .subscribe((response) => {
         this.courses = response.data.courses;
       });
+    this.route.params.subscribe((params) => {
+      this.nameprograma = params['programName'];
+      this.periodoPrograma = params['periodName'];
+      this.routeNavigation =
+        '/ ' + this.nameprograma + ' / ' + this.periodoPrograma + ' /';
+    });
   }
 }

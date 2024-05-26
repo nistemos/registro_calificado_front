@@ -14,10 +14,10 @@ import { BreadCrumbsComponent } from '../bread-crumbs/bread-crumbs.component';
 })
 export class ProgramYearComponent implements OnInit {
   title: string = 'PERIODO ACADEMICO';
-  routeNavigation: string = 'programa/';
   pathPartial = 'program-years';
   id!: number;
   academicPeriod?: program[];
+  programa!: any;
 
   constructor(
     private folderService: FolderService,
@@ -31,5 +31,8 @@ export class ProgramYearComponent implements OnInit {
       .subscribe((response) => {
         this.academicPeriod = response.data.courses;
       });
+    this.route.params.subscribe((params) => {
+      this.programa = '/ ' + params['name'] + ' / ';
+    });
   }
 }
