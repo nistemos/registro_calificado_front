@@ -1,6 +1,15 @@
 <a class="text-blueGray-500 block py-1 px-3" (click)="toggleDropdown($event)" #btnDropdownRef>
     <fa-icon class="fas fa-tv mr-2 text-sm" [icon]="faEllipsisVertical"></fa-icon>
 </a>
+@if(folder == 'File'){
+
+<div class="min-w-48 z-50" #popoverDropdownRef>
+    <div class="bg-white text-base float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48" [class]="dropdownPopoverShow ? 'block' : 'hidden'">
+        <a (click)="openModalUpdate()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:cursor-pointer">Modificar Archivo</a>
+        <a (click)="openModalDelete()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">Eliminar Archivo</a>
+    </div>
+</div>
+} @else {
 <div class="min-w-48 z-50" #popoverDropdownRef>
     <div class="bg-white text-base float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48" [class]="dropdownPopoverShow ? 'block' : 'hidden'">
 
@@ -8,6 +17,6 @@
         <a (click)="openModalDelete()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">Eliminar Carpeta</a>
     </div>
 </div>
-@if(isModalOpen){
+} @if(isModalOpen){
 <app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [program]="program" [pathPartial]="pathPartial" [id]="id" (close)="closeModal()"></app-modal>
 }

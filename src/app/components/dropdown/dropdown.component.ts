@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { program } from '../../interfaces/folder';
 import { ModalComponent } from "../modal/modal.component";
+import { file } from '../../interfaces/file';
 
 @Component({
     selector: 'app-dropdown',
@@ -16,6 +17,7 @@ import { ModalComponent } from "../modal/modal.component";
 export class DropdownComponent implements OnInit {
   @Input() program!:program;
   @Input() folder!: string;
+  @Input() file?: file;
   action!: string;
   pathPartial!: string;
   isModalOpen = false;

@@ -1,5 +1,7 @@
 <div class="flex flex-wrap mt-4">
     <div class="w-full mb-12 px-4">
-        <app-card-file [file]="file"></app-card-file>
+        @if(files && files.length > 0){
+        <app-card-file [files]="files" [files]="files"></app-card-file>
+        }
     </div>
 </div>
