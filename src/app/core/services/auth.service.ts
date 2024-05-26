@@ -31,6 +31,8 @@ export class AuthService {
   logout(): void {
     this.isLoggedInVar = false;
     this.localStorageService.clear();
+    this.router.navigate(['/login']);
+
   }
 
   saveToLocalStorage(token: string, value: string) {
@@ -41,19 +43,15 @@ export class AuthService {
     return this.localStorageService.getItem(token);
   }
 
-  private checkToken(): void {
+  public checkToken(): void {
     const token = this.retrieveFromLocalStorage('token');
-    if (token) {
-      this.isLoggedInVar = true;
-    } else {
-      this.isLoggedInVar = false;
-    }
+    this.isLoggedInVar = !!token;
   }
 
   public enviarDatos(datos: Auth): Observable<any> {
     return this.http.post<any>(this.path, datos).pipe(
       tap(response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           this.isLoggedInVar = true;
           this.saveToLocalStorage('token', response.data.token);
           Swal.fire({
