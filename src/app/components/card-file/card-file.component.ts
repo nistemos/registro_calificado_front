@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { getFile } from '../../interfaces/file';
+import { file, getFile } from '../../interfaces/file';
 
 @Component({
   selector: 'app-card-file',
@@ -10,7 +10,8 @@ import { getFile } from '../../interfaces/file';
 })
 export class CardFileComponent {
   @Input() title!:string;
-  @Input() file?:getFile[];
+  @Input() file?:file;
 
   constructor(){}
+
 }

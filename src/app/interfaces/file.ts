@@ -13,3 +13,11 @@ export interface getFile{
     webContentLink: string
   }
 }
+
+export interface file{
+  id: string,
+  name: string,
+  mimeType: string,
+  webViewLink: string,
+  webContentLink: string
+}

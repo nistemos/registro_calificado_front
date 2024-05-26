@@ -26,7 +26,6 @@ export class FolderComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
-    console.log(this.currentUrl);
   }
 
   get selectedId(): number | null {
