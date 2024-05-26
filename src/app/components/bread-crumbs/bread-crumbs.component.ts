@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bread-crumbs',
   standalone: true,
-  imports: [],
   templateUrl: './bread-crumbs.component.html',
-  styleUrl: './bread-crumbs.component.sass'
+  styleUrl: './bread-crumbs.component.sass',
+  imports: [],
 })
-export class BreadCrumbsComponent {
+export class BreadCrumbsComponent implements OnInit {
+  @Input() routeNavigation!: string;
+  dropdownPopoverShow = false;
 
+  ngOnInit(): void {}
 }

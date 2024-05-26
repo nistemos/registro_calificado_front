@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthService } from './core/services/auth.service';
 
 
 @Component({
@@ -9,6 +10,12 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'registro_calificado';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.checkToken();
+  }
 }

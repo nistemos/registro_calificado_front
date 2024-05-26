@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { Auth, AuthResult } from '../../interfaces/auth';
@@ -19,6 +19,7 @@ export class AuthService {
     private localStorageService: LocalStorageService,
     private router: Router
   ) {
+    this.checkToken();
   }
 
   // Método para verificar si el usuario está autenticado
@@ -30,12 +31,8 @@ export class AuthService {
   logout(): void {
     this.isLoggedInVar = false;
     this.localStorageService.clear();
-    Swal.fire({
-      icon: 'success',
-      title: 'Cierre de sesión exitoso',
-      text: ""
-    });
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/login']);
+
   }
 
   saveToLocalStorage(token: string, value: string) {
@@ -46,23 +43,36 @@ export class AuthService {
     return this.localStorageService.getItem(token);
   }
 
-  checkToken(): boolean {
+  public checkToken(): void {
     const token = this.retrieveFromLocalStorage('token');
-    if (token) {
-      this.isLoggedInVar = true;
-    } else {
-      this.isLoggedInVar = false;
-    }
-    return this.isLoggedInVar;
+    this.isLoggedInVar = !!token;
   }
 
-  public enviarDatos(datos: Auth): Observable<AuthResult> {
-    return this.http.post<AuthResult>(this.path, datos).pipe(
+  public enviarDatos(datos: Auth): Observable<any> {
+    return this.http.post<any>(this.path, datos).pipe(
       tap(response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           this.isLoggedInVar = true;
           this.saveToLocalStorage('token', response.data.token);
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Successful',
+            text: response.message
+          });
+          this.router.navigateByUrl('/dashboard');
         }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An unknown error occurred!';
+        if (error.status === 401) {
+          errorMessage = 'Unauthorized user, incorrect password.';
+        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: errorMessage
+        });
+        throw error;
       })
     );
   }
