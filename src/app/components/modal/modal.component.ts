@@ -1,17 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {  } from '@fortawesome/free-solid-svg-icons';
 import { FolderService } from '../../core/services/folder.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { createFolder, deleteFolder, program, updateFolder } from '../../interfaces/folder';
 import Swal from 'sweetalert2';
-import { combineLatest, filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.sass']
 })
@@ -41,10 +38,14 @@ export class ModalComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(255)]],
       ...(this.showCreditos && {credits: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]})
     });
-
     this.formFolder.patchValue(this.program);
-    if(this.action == 'update'){
-      this.updateFormData.id = +this.program.id;
+  }
+
+  ngOnChanges() {
+    if(this.program){
+      if(this.action == 'update'){
+        this.updateFormData.id = +this.program.id;
+      }
     }
   }
 

@@ -1,0 +1,36 @@
+<div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+    <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                <h3 class="font-semibold text-lg">
+                    {{ title }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="block w-full bg-transparent">
+        <div class="flex flex-wrap">
+            @for (file of files; track file.id){
+            <div class="min-w-40 max-w-44 px-2 py-3" [id]="file.id">
+                <div class="rounded-b lg:rounded-b-none lg:rounded-r p-3 flex flex-col justify-between leading-normal hover:shadow-lg hover:cursor-pointer">
+                    <!--<fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faFolder"></fa-icon>-->
+                    @switch(getFileType(file.mimeType)) { @case("Imagen JPEG" ||'Imagen PNG'){
+                    <fa-icon class="fas fa-tv m-auto text-6xl p-1" [icon]="faImage"></fa-icon>
+                    } @case("Archivo PDF"){
+                    <fa-icon class="fas fa-tv m-auto text-6xl p-1" [icon]="faFilePdf"></fa-icon>
+                    } @case('Archivo Excel' || 'Archivo Excel (XLSX)'){
+                    <fa-icon class="fas fa-tv m-auto text-6xl p-1" [icon]="faFileExcel"></fa-icon>
+                    } @case('Documento Word' || 'Documento Word (DOCX)'){
+                    <fa-icon class="fas fa-tv m-auto text-6xl p-1" [icon]="faFileWord"></fa-icon>
+                    } }
+                    <div class="flex-grow flex items-center pr-1 overflow-hidden">
+                        <p class="text-sm text-gray-600 truncate select-none" [title]="file.name">{{ file.name }}</p>
+                        <app-dropdown [folder]="fileFolder" [file]="file"></app-dropdown>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
