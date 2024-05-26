@@ -1,1 +1,115 @@
-<p>Acá va la landing de la dashboard</p>
+<style>
+  .content__container {
+    overflow: hidden;
+    height: 40px;
+  }
+
+  .content__container__list {
+    list-style: none;
+
+    animation-name: change;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+  }
+
+  .content__container__list__item {
+    margin: 0;
+    line-height: 40px;
+  }
+
+  @keyframes change {
+    0%,
+    7.14%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    14.28% {
+      transform: translate3d(0, -14.28%, 0);
+    }
+    21.42% {
+      transform: translate3d(0, -28.57%, 0);
+    }
+    28.57% {
+      transform: translate3d(0, -42.85%, 0);
+    }
+    35.71% {
+      transform: translate3d(0, -57.14%, 0);
+    }
+    42.85% {
+      transform: translate3d(0, -71.42%, 0);
+    }
+    53.5% {
+      transform: translate3d(0, -85.71%, 0);
+    }
+    64.28% {
+      transform: translate3d(0, -71.42%, 0);
+    }
+    71.42% {
+      transform: translate3d(0, -57.14%, 0);
+    }
+    78.54% {
+      transform: translate3d(0, -42.85%, 0);
+    }
+    85.71% {
+      transform: translate3d(0, -28.57%, 0);
+    }
+    92.85% {
+      transform: translate3d(0, -14.28%, 0);
+    }
+  }
+</style>
+<div class="header w-full flex flex-col">
+  <div class="flex flex-col justify-center h-full pt-12 pb-6">
+    <div
+      class="self-center items-center flex flex-col sm:flex-row w-full md:w-5/6 xl:w-2/3 px-4 sm:px-0"
+    >
+      <div class="w-full text-center sm:text-left sm:w-1/2 pt-12 sm:px-8">
+        <h1 class="font-bold tracking-wide text-[#004918] text-2xl mb-6">
+          Bienvenido:
+          <span class="text-[#000] font-normal tracking tracking-widest"
+            >Edwar Mayorga</span
+          >
+        </h1>
+        <h2 class="tracking-widest text-2xl">
+          ¡Explora las funcionalidades de nuestro sistema de registro
+          calificado!
+        </h2>
+        <span
+          class="content__container block font-light text-[#000] text-1xl my-6"
+        >
+          <ul class="content__container__list">
+            <li class="content__container__list__item xl:pl-3">
+              Gestión de Documentos
+            </li>
+            <li class="content__container__list__item xl:pl-3">
+              Control de Versiones
+            </li>
+            <li class="content__container__list__item xl:pl-3">
+              Registro de Oficiales
+            </li>
+            <li class="content__container__list__item xl:pl-3">
+              Seguimiento de Progreso
+            </li>
+            <li class="content__container__list__item xl:pl-3">
+              Reportes Personalizados
+            </li>
+          </ul>
+        </span>
+      </div>
+      <div class="w-full sm:w-1/2">
+        <img
+          src="assets/images/undraw_Friends_online_re_r7pq.svg"
+          alt="AWE.SOME header"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row w-full justify-center pb-12">
+    <a
+      class="px-10 py-2 text-[#fff] bg-[#004918] rounded-full shadow-md text-lg hover:bg-gray-800 hover:border-red"
+      href="https://www.fet.edu.co/"
+      target="_blank"
+      >Mas informacion</a
+    >
+  </div>
+</div>
