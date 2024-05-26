@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CardFoldersComponent } from "../card-folders/card-folders.component";
 import { FolderService } from '../../core/services/folder.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { program } from '../../interfaces/folder';
 
 @Component({
@@ -15,14 +15,14 @@ export class ProgramYearComponent implements OnInit {
   title: string = 'PERIODO ACADEMICO';
   pathPartial = 'program-years';
   id!: number;
-  courses?: program[];
+  academicPeriod?: program[];
 
-  constructor(private folderService: FolderService, private router: Router, private route: ActivatedRoute){}
+  constructor(private folderService: FolderService, private route: ActivatedRoute){}
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.folderService.getFolder(1, 1000, this.pathPartial, this.id).subscribe(response=>{
-      this.courses = response.data.courses
+      this.academicPeriod = response.data.courses
     })
   }
 }

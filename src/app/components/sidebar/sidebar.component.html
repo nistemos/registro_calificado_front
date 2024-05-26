@@ -15,7 +15,7 @@
         </button>
         <!--Modal-->
         @if(isModalOpen){
-        <app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [title]="title" [pathPartial]="pathPartial" (close)="closeModal()"></app-modal>
+        <app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [title]="title" [pathPartial]="pathPartial" [id]="id" (close)="closeModal()"></app-modal>
         }
         <!-- User -->
         <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -61,11 +61,6 @@
             <!-- Navigation -->
 
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                <li class="items-center">
-                    <a routerLink="/dashboard" class="text-xs uppercase py-3 font-bold block">
-                        <fa-icon class="fas fa-tv mr-2 text-sm" [icon]="faDesktop"></fa-icon> Panel
-                    </a>
-                </li>
                 <li class="items-center">
                     <a routerLink="/dashboard/profile" routerLinkActive="activebutton" #dashboardProfile="routerLinkActive" ariaCurrentWhenActive="page" class="button text-xs uppercase py-3 font-bold block">
                         <fa-icon class="fas fa-tv mr-2 text-sm" [icon]="faUser"></fa-icon> Perfil

@@ -14,20 +14,21 @@ export class FolderService {
     return localStorage.getItem('token');
   }
 
-  public createFolder(datos:createFolder, pathPartial: string, id?:number): Observable<getFolder>{
+  public createFolder(datos:createFolder, pathPartial: string): Observable<getFolder>{
     if(!this.getToken){
       return new Observable();
     }
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
+
     return this.http.post<getFolder>(this.path+'/'+pathPartial, datos, { headers }).pipe(
       tap(response => {
       })
     );
   }
 
-  public getFolder(page: number, limit: number, pathPartial: string, program?: number): Observable<getFolder> {
+  public getFolder(page: number, limit: number, pathPartial: string, program?: number, programYeardId?: number ): Observable<getFolder> {
     if (!this.getToken()) {
       return new Observable<getFolder>();
     }
@@ -37,6 +38,9 @@ export class FolderService {
       .set('limit', limit);
     if (program !== undefined && program !== null) {
       params = params.set('program', program.toString());
+    }
+    if (programYeardId !== undefined && programYeardId !== null) {
+      params = params.set('programYeardId', programYeardId.toString());
     }
 
     const headers = new HttpHeaders({
@@ -62,7 +66,6 @@ export class FolderService {
     if (!this.getToken()) {
       return new Observable();
     }
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });

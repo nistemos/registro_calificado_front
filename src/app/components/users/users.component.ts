@@ -24,7 +24,6 @@ export class UsersComponent implements OnInit {
     this.usersService.listar(page, limit).subscribe(
       response => {
         this.users = response.data.users;
-        console.log('Usuarios:', this.users);
       },
       error => {
         console.error('Error al listar usuarios:', error);

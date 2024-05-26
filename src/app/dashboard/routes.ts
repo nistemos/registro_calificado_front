@@ -7,11 +7,14 @@ export default [
       import('./dashboard.component').then((m) => m.DashboardComponent),
     title: 'Dashboard | RECAFET',
     children: [
-      // {
-      //   path: '',
-      //   loadComponent: () =>
-      //     import('../components/profile/profile.component').then(m => m.ProfileComponent)
-      // },
+      {
+        path: '',
+        loadComponent: () =>
+          import('../components/dashboard-index/dashboard-index.component').then(m => m.DashboardIndexComponent).catch((err) => {
+            console.error('Error loading DashboardIndexcomponent', err);
+            return null;
+          }),
+      },
       {
         path: 'profile',
         loadComponent: () =>
@@ -28,7 +31,7 @@ export default [
           import('../components/users/users.component')
             .then((m) => m.UsersComponent)
             .catch((err) => {
-              console.error('Error loading ProfileComponent', err);
+              console.error('Error loading UsersComponent', err);
               return null;
             }),
       },
@@ -38,17 +41,17 @@ export default [
           import('../components/programs/programs.component')
             .then((m) => m.ProgramsComponent)
             .catch((err) => {
-              console.error('Error loading ProfileComponent', err);
+              console.error('Error loading ProgramsComponent', err);
               return null;
             }),
       },
       {
-        path: 'courses',
+        path: 'courses/:id',
         loadComponent: () =>
           import('../components/courses/courses.component')
             .then((m) => m.CoursesComponent)
             .catch((err) => {
-              console.error('Error loading ProfileComponent', err);
+              console.error('Error loading CoursesComponent', err);
               return null;
             }),
       },
@@ -58,10 +61,17 @@ export default [
           import('../components/program-year/program-year.component')
             .then((m) => m.ProgramYearComponent)
             .catch((err) => {
-              console.error('Error loading ProfileComponent', err);
+              console.error('Error loading ProgramYearComponent', err);
               return null;
             }),
       },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('../page-not-found/page-not-found.component').then(
+            (m) => m.PageNotFoundComponent
+          ),
+      }
     ],
   },
 ] as Routes;
