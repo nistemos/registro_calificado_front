@@ -5,7 +5,6 @@ import { environment } from '../../../environments/environment.development';
 import { Auth, AuthResult } from '../../interfaces/auth';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -60,7 +59,7 @@ export class AuthService {
           Swal.fire({
             icon: 'success',
             title: 'Login Successful',
-            text: response.mmessage
+            text: response.message
           });
           this.router.navigateByUrl('/dashboard');
         }

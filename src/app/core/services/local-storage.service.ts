@@ -4,24 +4,41 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalStorageService {
-
   constructor() { }
 
-
-  // Remove a value from local storage
-  removeItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
   setItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem(key, value);
+    }
   }
 
   getItem(key: string): string | null {
-    return localStorage.getItem(key);
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem(key);
+    }
+    return null;
+  }
+
+  removeItem(key: string): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem(key);
+    }
   }
 
   clear(): void {
-    localStorage.clear();
+    if (this.isLocalStorageAvailable()) {
+      localStorage.clear();
+    }
+  }
+
+  private isLocalStorageAvailable(): boolean {
+    try {
+      const testKey = '__localStorageTest__';
+      localStorage.setItem(testKey, testKey);
+      localStorage.removeItem(testKey);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
