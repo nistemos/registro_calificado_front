@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.sass']
+  styleUrls: ['./users.component.sass'],
 })
 export class UsersComponent implements OnInit {
   users: any[] = [];
@@ -22,10 +22,10 @@ export class UsersComponent implements OnInit {
 
   listarUsuarios(page: number, limit: number): void {
     this.usersService.listar(page, limit).subscribe(
-      response => {
+      (response) => {
         this.users = response.data.users;
       },
-      error => {
+      (error) => {
         console.error('Error al listar usuarios:', error);
       }
     );
@@ -39,19 +39,15 @@ export class UsersComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminarlo'
+      confirmButtonText: 'Sí, eliminarlo',
     }).then((result) => {
       if (result.isConfirmed) {
         this.usersService.eliminarUsuario(id).subscribe(
-          response => {
-            Swal.fire(
-              'Eliminado!',
-              'El usuario ha sido eliminado.',
-              'success'
-            );
-            this.listarUsuarios(1, 111);  // Actualiza la lista de usuarios
+          (response) => {
+            Swal.fire('Eliminado!', 'El usuario ha sido eliminado.', 'success');
+            this.listarUsuarios(1, 111); // Actualiza la lista de usuarios
           },
-          error => {
+          (error) => {
             Swal.fire(
               'Error!',
               'Hubo un problema al eliminar el usuario.',
@@ -70,37 +66,48 @@ export class UsersComponent implements OnInit {
         `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${user.fullname}">` +
         `<input id="swal-input2" class="swal2-input" placeholder="Email" value="${user.email}">` +
         `<select id="swal-input3" class="swal2-input">
-          <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>admin</option>
-          <option value="teacher" ${user.role === 'teacher' ? 'selected' : ''}>teacher</option>
+          <option value="admin" ${
+            user.role === 'admin' ? 'selected' : ''
+          }>admin</option>
+          <option value="teacher" ${
+            user.role === 'teacher' ? 'selected' : ''
+          }>teacher</option>
         </select>` +
         `<input id="swal-input4" class="swal2-input" type="password" placeholder="Clave" value="">`,
       focusConfirm: false,
       showCancelButton: true,
       preConfirm: () => {
-        const clave = (document.getElementById('swal-input4') as HTMLInputElement).value;
+        const clave = (
+          document.getElementById('swal-input4') as HTMLInputElement
+        ).value;
         if (clave.length < 6) {
-          Swal.showValidationMessage('La clave debe tener al menos 6 caracteres');
+          Swal.showValidationMessage(
+            'La clave debe tener al menos 6 caracteres'
+          );
           return false;
         }
         return {
-          fullname: (document.getElementById('swal-input1') as HTMLInputElement).value,
-          email: (document.getElementById('swal-input2') as HTMLInputElement).value,
-          role: (document.getElementById('swal-input3') as HTMLInputElement).value,
-          clave: clave
-        }
-      }
+          fullname: (document.getElementById('swal-input1') as HTMLInputElement)
+            .value,
+          email: (document.getElementById('swal-input2') as HTMLInputElement)
+            .value,
+          role: (document.getElementById('swal-input3') as HTMLInputElement)
+            .value,
+          clave: clave,
+        };
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.usersService.actualizarUsuario(user.id, result.value).subscribe(
-          response => {
+          (response) => {
             Swal.fire(
               'Actualizado!',
               'El usuario ha sido actualizado.',
               'success'
             );
-            this.listarUsuarios(1, 111);  // Actualiza la lista de usuarios
+            this.listarUsuarios(1, 111); // Actualiza la lista de usuarios
           },
-          error => {
+          (error) => {
             Swal.fire(
               'Error!',
               'Hubo un problema al actualizar el usuario.',
@@ -126,30 +133,33 @@ export class UsersComponent implements OnInit {
       focusConfirm: false,
       showCancelButton: true,
       preConfirm: () => {
-        const clave = (document.getElementById('swal-input4') as HTMLInputElement).value;
+        const clave = (
+          document.getElementById('swal-input4') as HTMLInputElement
+        ).value;
         if (clave.length < 6) {
-          Swal.showValidationMessage('La clave debe tener al menos 6 caracteres');
+          Swal.showValidationMessage(
+            'La clave debe tener al menos 6 caracteres'
+          );
           return false;
         }
         return {
-          fullname: (document.getElementById('swal-input1') as HTMLInputElement).value,
-          email: (document.getElementById('swal-input2') as HTMLInputElement).value,
-          role: (document.getElementById('swal-input3') as HTMLInputElement).value,
-          clave: clave
-        }
-      }
+          fullname: (document.getElementById('swal-input1') as HTMLInputElement)
+            .value,
+          email: (document.getElementById('swal-input2') as HTMLInputElement)
+            .value,
+          role: (document.getElementById('swal-input3') as HTMLInputElement)
+            .value,
+          clave: clave,
+        };
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.usersService.crearUsuario(result.value).subscribe(
-          response => {
-            Swal.fire(
-              'Creado!',
-              'El usuario ha sido creado.',
-              'success'
-            );
-            this.listarUsuarios(1, 111);  // Actualiza la lista de usuarios
+          (response) => {
+            Swal.fire('Creado!', 'El usuario ha sido creado.', 'success');
+            this.listarUsuarios(1, 111); // Actualiza la lista de usuarios
           },
-          error => {
+          (error) => {
             Swal.fire(
               'Error!',
               'Hubo un problema al crear el usuario.',
