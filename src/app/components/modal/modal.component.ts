@@ -39,12 +39,14 @@ export class ModalComponent implements OnInit {
       ...(this.showCreditos && {credits: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]})
     });
     this.formFolder.patchValue(this.program);
-    if(this.action == 'update'){
-      this.updateFormData.id = +this.program.id;
-    }
   }
 
   ngOnChanges() {
+    if(this.program){
+      if(this.action == 'update'){
+        this.updateFormData.id = +this.program.id;
+      }
+    }
   }
 
   closeModal(): void {
