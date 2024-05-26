@@ -50,6 +50,10 @@ export class FolderComponent implements OnInit {
       // Navegar a la URL con el ID del programa
       this.router.navigate(['/dashboard/courses', id]);
     }
+    if(this.currentUrl.startsWith("/dashboard/courses")){
+      // Navegar a la URL con el ID del programa
+      this.router.navigate(['/dashboard/courses/files', id]);
+    }
   }
 
 }

@@ -56,6 +56,16 @@ export default [
             }),
       },
       {
+        path: 'courses/files/:id',
+        loadComponent: () =>
+          import('../components/file/file.component')
+            .then((m) => m.FileComponent)
+            .catch((err) => {
+              console.error('Error loading FileComponent', err);
+              return null;
+            }),
+      },
+      {
         path: 'academic-period/:id',
         loadComponent: () =>
           import('../components/program-year/program-year.component')
