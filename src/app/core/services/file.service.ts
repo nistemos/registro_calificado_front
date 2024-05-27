@@ -36,8 +36,10 @@ export class FileService {
       'Authorization': `Bearer ${this.getToken()}`
     });
 
-    return this.http.post<FormData>(this.path+'/'+pathPartial, formData, { headers })
+    return this.http.post<any>(`${this.path}/${pathPartial}/${id}`, formData, { headers});
   }
+
+
 
   // public maxSizeValidator(maxSize: number): ValidatorFn {
   //   return (control: AbstractControl): { [key: string]: any } | null => {

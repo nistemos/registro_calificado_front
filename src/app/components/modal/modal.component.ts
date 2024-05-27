@@ -36,12 +36,11 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.showCreditos = this.pathPartial === 'courses';
     this.file = this.pathPartial === 'drive';
     if(this.file){
       this.formFile = this.formBuilder.group({
-        file: ['', [Validators.required]],
+        file: [null, [Validators.required]],
       });
     }else{
       this.formFolder = this.formBuilder.group({
@@ -51,7 +50,6 @@ export class ModalComponent implements OnInit {
       });
       this.formFolder.patchValue(this.program);
     }
-
   }
 
   ngOnChanges() {
@@ -62,14 +60,25 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  onFileSelected(event: any) {
-    const fil: File = event.target.files[0];
-    this.selectedFile = fil;
-    this.formFile.patchValue({
-      file: fil
-    });
-  }
+  // onLoad(event: Event): void {
+  //   const element = event.target as HTMLInputElement;
+  //   const file = element.files?.item(0);
+  //   if (file) {
+  //     this.fileService.uploadFile(file, this.id, this.pathPartial)
+  //       .subscribe(res => {
+  //         console.log(res);
+  //       });
+  //   }
+  // }
 
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.formFile.patchValue({
+        file: file
+      });
+    }
+  }
 
 
   closeModal(): void {
@@ -135,38 +144,32 @@ export class ModalComponent implements OnInit {
 
 
   onSubmitFile() {
-    const fileControl = this.formFile.get('file');
+    if(this.formFile.valid){
+      switch (this.action) {
+        case "create":
+          const formData = new FormData();
+          formData.append('file', this.formFile.get('file')?.value);
+          this.fileService.uploadFile(formData, this.id, this.pathPartial).subscribe(response => {
+            console.log(response);
 
-    if (fileControl) {
-      const fileValue = fileControl.value;
-      if (fileValue) {
-        const formData = new FormData();
-        formData.append('file', fileValue);
-        switch (this.action) {
-          case "create":
-            this.fileService.uploadFile(formData, +this.id, this.pathPartial).pipe(
-              tap(response => {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Archivo subido exitosamente',
-                  text: ''
-                });
-              }))
-            break;
-          case "update":
-            console.log("Hola mundo Modificar");
-            break;
-          case "delete":
-            console.log("Hola mundo Eliminar");
-            break;
-          default:
-            console.log('Opción no reconocida');
-        }
-      } else {
-        console.error('File control value is null or empty.');
+          });
+          Swal.fire({
+            icon: 'success',
+            title: 'Cargue Exitoso',
+            text: 'Archivo Subido Exitosamente'
+          });
+          this.closeModal();
+          this.formFile.reset();
+          break;
+        case "update":
+          console.log("Hola mundo Modificar");
+          break;
+        case "delete":
+          console.log("Hola mundo Eliminar");
+          break;
+        default:
+          console.log('Opción no reconocida');
       }
-    } else {
-      console.error('File control is null.');
     }
   }
 }

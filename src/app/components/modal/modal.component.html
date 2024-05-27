@@ -52,7 +52,7 @@
                                                         <div class="mt-4 flex text-sm leading-6">
                                                             <label for="file-upload" class="relative flex flex-col cursor-pointer rounded-md bg-white font-semibold text-emerald-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-emerald-700 focus-within:ring-offset-2 hover:text-emerald-700">
                                                               <span>Cargar Archivo</span>
-                                                              <input id="file-upload" name="file-upload" (change)="onFileSelected($event)" formControlName="file" type="file" class="w-full sr-only">
+                                                              <input id="file-upload" name="file-upload"  (change)="onFileChange($event)" formControlName="file" type="file" class="w-full sr-only">
                                                             </label>
                                                         </div>
                                                         @if(formFile.get('file')?.hasError('fileType')){
