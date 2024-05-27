@@ -103,13 +103,11 @@ export class DriveService {
   ): Promise<any[]> {
     try {
       const folderId = await this.getFolderId(folderName, parentFolderId);
-      console.log(folderId, 'folder');
       try {
         const response = await this.drive.files.list({
           q: `'${folderId}' in parents and trashed=false`,
           fields: 'files(id, name, mimeType, webViewLink, webContentLink)',
         });
-        console.log('response', response);
         return response.data.files.map((file) => ({
           id: file.id,
           name: file.name,

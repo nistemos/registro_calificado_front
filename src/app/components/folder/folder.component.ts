@@ -22,11 +22,10 @@ export class FolderComponent implements OnInit {
   faFolder = faFolder;
   faEllipsisVertical = faEllipsisVertical;
   nameFolder = 'PROGRAMAS';
-  showModal:  boolean = false;
+  showModal: boolean = false;
   currentUrl!: string;
   @Input() program!: program;
   @Input() folder: any;
-  @Input() nameProgram?: string;
 
   constructor(
     private selectionService: SelectionService,
@@ -44,7 +43,7 @@ export class FolderComponent implements OnInit {
   }
 
   selectComponent(id: number): void {
-    if(this.showModal){
+    if (this.showModal) {
       return;
     }
     if (this.selectedId === id) {
