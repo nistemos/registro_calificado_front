@@ -25,7 +25,8 @@ import { file } from '../../interfaces/file';
 export class DropdownComponent implements OnInit {
   @Input() program!: program;
   @Input() folder!: string;
-  @Input() file?: file;
+  @Input() file!: file;
+  @Input() folderName!: string;
   @Output() modalEstadoCambiado: EventEmitter<boolean> =
     new EventEmitter<boolean>();
   action!: string;
@@ -34,6 +35,7 @@ export class DropdownComponent implements OnInit {
   faEllipsisVertical = faEllipsisVertical;
   dropdownPopoverShow = false;
   id!: number;
+  cadena!: string;
   urlParts: any;
   @ViewChild('btnDropdownRef', { static: false })
   btnDropdownRef!: ElementRef;
@@ -42,13 +44,17 @@ export class DropdownComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit(): void {
+
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     let currentUrl = this.router.url;
     // Dividir la URL en partes usando el caracter "/"
     this.urlParts = currentUrl.split('/');
     // Obtener el último segmento de la URL
-    this.id = this.urlParts[this.urlParts.length - 1];
+    this.cadena = this.urlParts[this.urlParts.length - 1];
+      const partes = this.cadena.split(';');
+      const numero = +partes.length > 0 ? partes[0] : '';
+      this.id = +numero;
 
     if (!currentUrl.startsWith('/dashboard/programs/')) {
       this.pathPartial = 'programs';
@@ -79,6 +85,7 @@ export class DropdownComponent implements OnInit {
   }
 
   openModalUpdate(): void {
+
     this.isModalOpen = true;
     this.action = 'update';
     this.dropdownPopoverShow = !this.dropdownPopoverShow;

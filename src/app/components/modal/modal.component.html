@@ -37,7 +37,7 @@
                                         }
                                     </div>
                                 </form>
-                                } @if(file){
+                                } @if(file && this.action === 'create'){
                                 <form [formGroup]="formFile" (ngSubmit)="onSubmitFile()" class="mx-auto">
                                     <div class="flex justify-center items-center">
                                         <!-- Modificación aquí -->
@@ -70,7 +70,23 @@
                                     </div>
                                     <!-- Cierre de la div agregada -->
                                 </form>
-
+                                } @if(file && this.action === 'update'){
+                                <form [formGroup]="formFile" (ngSubmit)="onSubmitFile()">
+                                    <div class="flex flex-wrap">
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Nombre Anterior del Archivo</label>
+                                                <input type="text" formControlName="oldFileName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Nuevo Nombre del Archivo</label>
+                                                <input type="text" formControlName="newFileName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                                 }
                             </div>
                         </div>

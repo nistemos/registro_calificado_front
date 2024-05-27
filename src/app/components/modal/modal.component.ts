@@ -4,7 +4,7 @@ import { FolderService } from '../../core/services/folder.service';
 import { createFolder, deleteFolder, program, updateFolder } from '../../interfaces/folder';
 import Swal from 'sweetalert2';
 import { FileService } from '../../core/services/file.service';
-import { tap } from 'rxjs';
+import { file, updateFile } from '../../interfaces/file';
 
 @Component({
   selector: 'app-modal',
@@ -21,11 +21,14 @@ export class ModalComponent implements OnInit {
   @Input() title!: string;
   @Input() pathPartial!: string;
   @Input() id!: number;
+  @Input() folderName!: string;
+  @Input() fileArchivo!: file;
   @Output() close = new EventEmitter<void>();
   formFolder!: FormGroup;
   formFile!: FormGroup;
   showCreditos: boolean = false;
   file: boolean = false;
+  updateFile!: updateFile;
   selectedFile!: File | null;
   createFormData!:createFolder;
   updateFormData:updateFolder = { id: 0, data: {name:"", description:"", program: 0, programsYear: 0, credits:0}, status:0 };
@@ -36,9 +39,19 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.folderName);
+
     this.showCreditos = this.pathPartial === 'courses';
     this.file = this.pathPartial === 'drive';
-    if(this.file){
+    if(this.file && this.action === 'update'){
+      this.formFile = this.formBuilder.group({
+        // folderName: ['', Validators.required], ES EL ID DE LA CARPETA
+        oldFileName: [this.fileArchivo.name, Validators.required],
+        newFileName: ['', Validators.required],
+        //parentFolderId: ['', Validators.required]
+      });
+    }
+    if(this.file && this.action === 'create'){
       this.formFile = this.formBuilder.group({
         file: [null, [Validators.required]],
       });
@@ -60,23 +73,15 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  // onLoad(event: Event): void {
-  //   const element = event.target as HTMLInputElement;
-  //   const file = element.files?.item(0);
-  //   if (file) {
-  //     this.fileService.uploadFile(file, this.id, this.pathPartial)
-  //       .subscribe(res => {
-  //         console.log(res);
-  //       });
-  //   }
-  // }
-
   onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.formFile.patchValue({
-        file: file
-      });
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file) {
+        this.formFile.patchValue({
+          file: file
+        });
+      }
     }
   }
 
@@ -162,7 +167,18 @@ export class ModalComponent implements OnInit {
           this.formFile.reset();
           break;
         case "update":
-          console.log("Hola mundo Modificar");
+          this.updateFile = this.formFile.value;
+          this.updateFile.folderName = this.folderName;
+          this.updateFile.parentFolderId = "";
+          this.fileService.updateFile(this.updateFile, this.pathPartial).subscribe(response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Modificación Exitosa',
+              text: 'Archivo Modificado Exitosamente'
+            });
+            this.closeModal();
+            this.formFile.reset();
+          })
           break;
         case "delete":
           console.log("Hola mundo Eliminar");

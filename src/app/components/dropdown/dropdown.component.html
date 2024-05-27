@@ -17,6 +17,8 @@
         <a (click)="openModalDelete()" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">Eliminar Carpeta</a>
     </div>
 </div>
-} @if(isModalOpen){
+} @if(isModalOpen && folder != 'File'){
 <app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [program]="program" [pathPartial]="pathPartial" [id]="id" (close)="closeModal()"></app-modal>
+} @if(isModalOpen && folder == 'File'){
+<app-modal [isOpen]="isModalOpen" [folder]="folder" [action]="action" [fileArchivo]="file" [pathPartial]="pathPartial" [id]="id" [folderName]="folderName" (close)="closeModal()"></app-modal>
 }

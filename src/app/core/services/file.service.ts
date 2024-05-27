@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { file, getFile, parameterFile } from '../../interfaces/file';
+import { file, getFile, parameterFile, updateFile } from '../../interfaces/file';
 import { environment } from '../../../environments/environment.development';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
@@ -39,44 +39,16 @@ export class FileService {
     return this.http.post<any>(`${this.path}/${pathPartial}/${id}`, formData, { headers});
   }
 
-
-
-  // public maxSizeValidator(maxSize: number): ValidatorFn {
-  //   return (control: AbstractControl): { [key: string]: any } | null => {
-  //     const file = control.value;
-  //     if (file) {
-  //       const fileSize = file.size;
-  //       // Verificar el tamaño del archivo
-  //       if (fileSize > maxSize) {
-  //         return { 'fileSizeExceeded': true };
-  //       }
-  //     }
-  //     return null;
-  //   };
-  // }
-
-  // validateFile(file: File, maxSize: number ): any {
-  //   if (file) {
-  //     console.log(file.type);
-
-  //     const fileType = file.type;
-  //     const fileSize = file.size;
-
-  //     // Verificar el tamaño del archivo
-  //      // Verificar el tamaño del archivo
-  //     if (fileSize > maxSize) {
-  //       return { 'fileSizeExceeded': true };
-  //     }
-
-  //     // Verificar el tipo del archivo
-  //     if (!this.isTypeAllowed(fileType)) {
-  //       return { 'fileTypeNotAllowed': true };
-  //     }
-
-  //     // Archivo válido
-  //     console.log('El archivo es válido.');
-  //   }
-  // }
+  public updateFile(data: updateFile, pathPartial: string): Observable<updateFile>{
+    if(!this.getToken){
+      return new Observable();
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    // return this.http.post<any>(, formData, { headers});
+    return this.http.patch<updateFile>(`${this.path}/${pathPartial}/rename-file`, data, { headers })
+  }
 
   private isTypeAllowed(fileType: string): boolean {
     return this.allowedTypes.includes(fileType);
