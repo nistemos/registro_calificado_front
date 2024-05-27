@@ -22,6 +22,7 @@ export class FolderComponent implements OnInit {
   faFolder = faFolder;
   faEllipsisVertical = faEllipsisVertical;
   nameFolder = 'PROGRAMAS';
+  showModal:  boolean = false;
   currentUrl!: string;
   @Input() program!: program;
   @Input() folder: any;
@@ -43,11 +44,19 @@ export class FolderComponent implements OnInit {
   }
 
   selectComponent(id: number): void {
+    if(this.showModal){
+      return;
+    }
     if (this.selectedId === id) {
       this.selectionService.clearSelection();
     } else {
       this.selectionService.selectComponent(id);
     }
+  }
+
+  // Método para manejar el cambio de estado del modal
+  manejarCambioModal(estado: boolean) {
+    this.showModal = estado;
   }
 
   openComponent(id: number, name: string = ''): void {

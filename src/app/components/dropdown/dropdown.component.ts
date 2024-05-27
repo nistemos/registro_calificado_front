@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { createPopper } from "@popperjs/core";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,6 +18,7 @@ export class DropdownComponent implements OnInit {
   @Input() program!:program;
   @Input() folder!: string;
   @Input() file?: file;
+  @Output() modalEstadoCambiado: EventEmitter<boolean> = new EventEmitter<boolean>();
   action!: string;
   pathPartial!: string;
   isModalOpen = false;
@@ -49,6 +50,9 @@ export class DropdownComponent implements OnInit {
     if(currentUrl.startsWith("/dashboard/academic-period/")){
       this.pathPartial = "program-years";
     }
+    if(currentUrl.startsWith("/dashboard/courses/files")){
+      this.pathPartial = "drive";
+    }
   }
 
   ngAfterViewInit() {
@@ -65,19 +69,23 @@ export class DropdownComponent implements OnInit {
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
   }
 
+
   openModalUpdate(): void {
     this.isModalOpen = true;
     this.action = "update";
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
+    this.modalEstadoCambiado.emit(true);
   }
 
   openModalDelete(): void {
     this.isModalOpen = true;
     this.action = "delete";
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
+    this.modalEstadoCambiado.emit(true);
   }
 
   closeModal(): void {
     this.isModalOpen = false;
+    this.modalEstadoCambiado.emit(false);
   }
 }

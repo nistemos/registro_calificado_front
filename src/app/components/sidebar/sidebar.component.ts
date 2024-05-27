@@ -73,6 +73,12 @@ export class SidebarComponent implements OnInit {
       this.action = "create";
       this.pathPartial = "program-years";
     }
+    if(currentUrl.startsWith("/dashboard/courses/files/")){
+      this.title = "Archivo"
+      this.folder = "ARCHIVOS";
+      this.action = "create";
+      this.pathPartial = "drive";
+    }
   }
 
   logOut(): void {
