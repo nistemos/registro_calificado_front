@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { file, getFile, parameterFile, updateFile } from '../../interfaces/file';
+import { deleteFile, file, getFile, parameterFile, updateFile } from '../../interfaces/file';
 import { environment } from '../../../environments/environment.development';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
@@ -48,6 +48,19 @@ export class FileService {
     });
     // return this.http.post<any>(, formData, { headers});
     return this.http.patch<updateFile>(`${this.path}/${pathPartial}/rename-file`, data, { headers })
+  }
+
+  public deleteFile(data: deleteFile, pathPartial: string): Observable<any>{
+    if(!this.getToken){
+      return new Observable();
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    let params = new HttpParams()
+      .set('folderName', data.folderName)
+      .set('fileName', data.fileName);
+    return this.http.delete<any>(`${this.path}/${pathPartial}/delete-file`,{headers, params})
   }
 
   private isTypeAllowed(fileType: string): boolean {

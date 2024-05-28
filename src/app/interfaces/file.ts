@@ -28,3 +28,8 @@ export interface updateFile{
     newFileName: string,
     parentFolderId: string
 }
+
+export interface deleteFile{
+  folderName: string,
+  fileName: string
+}
