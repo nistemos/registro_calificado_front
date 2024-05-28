@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit {
   pathPartial!: string;
   urlParts: any;
   id!: number;
+  cadena!: string;
   constructor(private router: Router, private AuthService: AuthService, private route: ActivatedRoute){}
 
   ngOnInit() {
@@ -51,7 +52,12 @@ export class SidebarComponent implements OnInit {
 
     if(this.urlParts[this.urlParts.length - 1] != "programs"){
       // Obtener el último segmento de la URL
-      this.id = this.urlParts[this.urlParts.length - 1];
+      this.cadena = this.urlParts[this.urlParts.length - 1];
+      const partes = this.cadena.split(';');
+      const numero = +partes.length > 0 ? partes[0] : '';
+      this.id = +numero;
+
+
     }
 
     this.isModalOpen = true;
@@ -72,6 +78,12 @@ export class SidebarComponent implements OnInit {
       this.folder = "PERIODO ACADÉMICO";
       this.action = "create";
       this.pathPartial = "program-years";
+    }
+    if(currentUrl.startsWith("/dashboard/courses/files/")){
+      this.title = "Archivo"
+      this.folder = "ARCHIVOS";
+      this.action = "create";
+      this.pathPartial = "drive";
     }
   }
 

@@ -21,3 +21,15 @@ export interface file{
   webViewLink: string,
   webContentLink: string
 }
+export interface updateFile{
+
+    folderName: string,
+    oldFileName: string,
+    newFileName: string,
+    parentFolderId: string
+}
+
+export interface deleteFile{
+  folderName: string,
+  fileName: string
+}

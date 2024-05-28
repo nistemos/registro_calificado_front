@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { file } from '../../interfaces/file';
 import { DropdownComponent } from "../dropdown/dropdown.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faFileWord, faImage, faFilePdf, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { faFileWord, faImage, faFilePdf, faFileExcel, faFile } from '@fortawesome/free-solid-svg-icons';
 import { SelectionService } from '../../core/services/selection.service';
 
 @Component({
@@ -15,7 +15,9 @@ import { SelectionService } from '../../core/services/selection.service';
 export class CardFileComponent implements OnInit {
   @Input() title!:string;
   @Input() files?:file[];
+  @Input() folderName!:string;
   faFileWord = faFileWord;
+  faFile = faFile;
   faImage = faImage;
   faFilePdf = faFilePdf;
   faFileExcel = faFileExcel
@@ -31,6 +33,24 @@ export class CardFileComponent implements OnInit {
   get selectedId(): number | null {
     return this.selectionService.selectedId;
   }
+
+  getIconForFileType(mimeType: string): any {
+    switch (this.getFileType(mimeType)) {
+        case "Imagen JPEG":
+        case "Imagen PNG":
+            return this.faImage;
+        case "Archivo PDF":
+            return this.faFilePdf;
+        case 'Archivo Excel':
+        case 'Archivo Excel (XLSX)':
+            return this.faFileExcel;
+        case 'Documento Word':
+        case 'Documento Word (DOCX)':
+            return this.faFileWord;
+        default:
+            return this.faFile;
+    }
+}
 
   getFileType(mimeType: string): string {
     const mimeTypes: { [key: string]: string } = {

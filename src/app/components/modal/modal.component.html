@@ -1,172 +1,145 @@
 @if(isOpen && (action == 'update'|| action == 'create')){
-<div
-  class="relative z-10"
-  aria-labelledby="modal-title"
-  role="dialog"
-  aria-modal="true"
->
-  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+<div class="relative z-10 cursor-default" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity cursor-default"></div>
 
-  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div
-      class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-    >
-      <div
-        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
-      >
-        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-          <div class="sm:flex sm:items-start">
-            <div class="text-center sm:ml-4 sm:mt-0 sm:text-left">
-              @if(action == 'create'){
-              <h3
-                class="text-base font-semibold leading-6 text-emerald-700"
-                id="modal-title"
-              >
-                Crear {{ title }}
-              </h3>
-              }
-              <div class="mt-2">
-                <form [formGroup]="formFolder" (ngSubmit)="onSubmit()">
-                  <div class="flex flex-wrap">
-                    <div class="w-full lg:w-12/12 px-4">
-                      <div class="relative w-full mb-3">
-                        <label
-                          class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                          >Nombre del {{ folder }}</label
-                        >
-                        <input
-                          type="text"
-                          formControlName="name"
-                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        />
-                      </div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            @if(action == 'create'){
+                            <h3 class="text-base font-semibold leading-6 text-emerald-700" id="modal-title">Crear {{ title }}</h3>
+                            }
+                            <div class="mt-2">
+                                @if(!file){
+                                <form [formGroup]="formFolder" (ngSubmit)="onSubmit()">
+                                    <div class="flex flex-wrap">
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Nombre del {{ folder }}</label>
+                                                <input type="text" formControlName="name" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                                            </div>
+                                        </div>
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Descripción</label>
+                                                <textarea class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" formControlName="description"></textarea>
+                                            </div>
+                                        </div>
+                                        @if(showCreditos){
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Créditos</label>
+                                                <input type="text" formControlName="credits" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                                            </div>
+                                        </div>
+                                        }
+                                    </div>
+                                </form>
+                                } @if(file && this.action === 'create'){
+                                <form [formGroup]="formFile" (ngSubmit)="onSubmitFile()" class="mx-auto">
+                                    <div class="flex justify-center items-center">
+                                        <!-- Modificación aquí -->
+                                        <div class="w-full lg:w-12/12 px-4 ">
+                                            <div class="relative w-full mb-3">
+                                                <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                                                    <div class="flex flex-col w-full items-center justify-center">
+                                                        <!-- Modificación aquí -->
+                                                        <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                          <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                                                        </svg>
+                                                        <div class="mt-4 flex text-sm leading-6">
+                                                            <label for="file-upload" class="relative flex flex-col cursor-pointer rounded-md bg-white font-semibold text-emerald-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-emerald-700 focus-within:ring-offset-2 hover:text-emerald-700">
+                                                              <span>Cargar Archivo</span>
+                                                              <input id="file-upload" name="file-upload"  (change)="onFileChange($event)" formControlName="file" type="file" class="w-full sr-only">
+                                                            </label>
+                                                        </div>
+                                                        @if(formFile.get('file')?.hasError('fileType')){
+                                                        <p class="text-xs leading-5 text-gray-600">Tipo de archivo no permitido.</p>
+                                                        } @if(formFile.get('file')?.hasError('fileSize')){
+                                                        <p class="text-xs leading-5 text-gray-600">El tamaño del archivo excede el límite permitido de 10MB.</p>
+                                                        } @if(fileTypeDescription){
+                                                        <p class="text-xs leading-5 text-gray-600">Tipo de archivo: {{ fileTypeDescription }}</p>
+                                                        }
+                                                        <p class="text-xs leading-5 text-gray-600">Peso del archivo 10MB</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Cierre de la div agregada -->
+                                </form>
+                                } @if(file && this.action === 'update'){
+                                <form [formGroup]="formFile" (ngSubmit)="onSubmitFile()">
+                                    <div class="flex flex-wrap">
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Nombre Anterior del Archivo</label>
+                                                <input type="text" formControlName="oldFileName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="w-full lg:w-12/12 px-4">
+                                            <div class="relative w-full mb-3">
+                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">Nuevo Nombre del Archivo</label>
+                                                <input type="text" formControlName="newFileName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                }
+                            </div>
+                        </div>
                     </div>
-                    <div class="w-full lg:w-12/12 px-4">
-                      <div class="relative w-full mb-3">
-                        <label
-                          class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                          >Descripción</label
-                        >
-                        <textarea
-                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          formControlName="description"
-                        ></textarea>
-                      </div>
-                    </div>
-                    @if(showCreditos){
-                    <div class="w-full lg:w-12/12 px-4">
-                      <div class="relative w-full mb-3">
-                        <label
-                          class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                          >Créditos</label
-                        >
-                        <input
-                          type="text"
-                          formControlName="credits"
-                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        />
-                      </div>
-                    </div>
-                    }
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    @if(file){
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800 sm:ml-3 sm:w-auto disabled:bg-gray-400" [disabled]="formFile.invalid" (click)="onSubmitFile()">Enviar</button>                    }@else {
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800 sm:ml-3 sm:w-auto disabled:bg-gray-400" [disabled]="formFolder.invalid" (click)="onSubmit()">Enviar</button>                    }
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="closeModal()">Cancel</button>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <button
-            type="button"
-            class="inline-flex w-full justify-center rounded-md bg-[#004918] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#004918] sm:ml-3 sm:w-auto disabled:bg-gray-400"
-            [disabled]="formFolder.invalid"
-            (click)="onSubmit()"
-          >
-            Enviar
-          </button>
-          <button
-            type="button"
-            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-            (click)="closeModal()"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 } @if(isOpen && action == 'delete'){
-<div
-  class="relative z-10"
-  aria-labelledby="modal-title"
-  role="dialog"
-  aria-modal="true"
->
-  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div
-      class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-    >
-      <div
-        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
-      >
-        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-          <div class="sm:flex sm:items-start">
-            <div
-              class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
-            >
-              <svg
-                class="h-6 w-6 text-red-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                />
-              </svg>
+<div class="relative z-10 cursor-default" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity cursor-default"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            @if(file){
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Eliminar Archivo</h3>
+                            }@else {
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Eliminar Carpeta</h3>
+                            }
+                            <div class="mt-2">
+                                @if(file){
+                                <p class="text-sm text-gray-500">¿Está seguro de eliminar el archivo?</p>
+                                }@else {
+                                <p class="text-sm text-gray-500">¿Está seguro de eliminar la carpeta?</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    @if(file){
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="onSubmitFile()">Eliminar</button> }@else{
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="onSubmit()">Eliminar</button>}
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="closeModal()">Cancel</button>
+                </div>
             </div>
-            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-              <h3
-                class="text-base font-semibold leading-6 text-gray-900"
-                id="modal-title"
-              >
-                Eliminar Carpeta
-              </h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  ¿Está seguro de eliminar la carpeta?
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <button
-            type="button"
-            class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-            (click)="onSubmit()"
-          >
-            Eliminar
-          </button>
-          <button
-            type="button"
-            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-            (click)="closeModal()"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
 }
