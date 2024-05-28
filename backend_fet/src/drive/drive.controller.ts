@@ -39,8 +39,6 @@ export class DriveController {
     @UploadedFile() file: Express.Multer.File, // Cambiado a Express.Multer.File
   ) {
     const rest = this.driveService.uploadFile(idCurse + '', file);
-
-    console.log('Received file:', file, idCurse); // Log para verificar el archivo recibido
     return rest;
   }
 
