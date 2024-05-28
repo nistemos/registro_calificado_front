@@ -188,8 +188,6 @@ export class ModalComponent implements OnInit {
         case "delete":
           this.deleteFile.fileName = this.fileArchivo.name;
           this.deleteFile.folderName = this.folderName;
-          console.log(this.deleteFile);
-
           this.fileService.deleteFile(this.deleteFile, this.pathPartial).subscribe(response => {
             Swal.fire({
               icon: 'success',

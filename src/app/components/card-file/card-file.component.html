@@ -12,7 +12,7 @@
     <div class="block w-full bg-transparent">
         <div class="flex flex-wrap">
             @for (file of files; track file.id){
-            <div class="min-w-40 max-w-44 px-2 py-3" [id]="file.id">
+            <div class="min-w-40 max-w-44 px-2 py-" [id]="file.id">
                 <div class="rounded-b lg:rounded-b-none lg:rounded-r p-3 flex flex-col justify-between leading-normal hover:shadow-lg hover:cursor-pointer">
                     <!--<fa-icon class="fas fa-tv mr-2 text-sm p-1" [icon]="faFolder"></fa-icon>-->
                     @switch(getFileType(file.mimeType)) { @case("Imagen JPEG" ||'Imagen PNG'){
@@ -24,9 +24,17 @@
                     } @case('Documento Word' || 'Documento Word (DOCX)'){
                     <fa-icon class="fas fa-tv m-auto text-6xl p-1" [icon]="faFileWord"></fa-icon>
                     } }
-                    <div class="flex-grow flex items-center pr-1 overflow-hidden">
-                        <p class="text-sm text-gray-600 truncate select-none" [title]="file.name">{{ file.name }}</p>
-                        <app-dropdown [folder]="fileFolder" [file]="file" [folderName]="folderName"></app-dropdown>
+                    <div class="flex-grow flex items-center justify-center pr-1 overflow-hidden">
+                        <p class="text-sm text-gray-600 truncate select-none w-10/12" [title]="file.name">{{ file.name }}</p>
+                        <app-dropdown class="w-2/12" [folder]="fileFolder" [file]="file" [folderName]="folderName"></app-dropdown>
+                    </div>
+                    <div class="flex flex-grow">
+                        <a class="text-xs uppercase py-3 font-bold block pr-5" href="{{ file.webViewLink }}" target="_blank">
+                      Ver
+                    </a>
+                        <a class="text-xs uppercase py-3 font-bold block" href="{{ file.webContentLink }}" target="_blank">
+                      Descargar
+                    </a>
                     </div>
                 </div>
             </div>
