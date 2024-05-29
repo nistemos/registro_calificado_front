@@ -52,7 +52,7 @@ export class DriveService {
   async uploadFile(
     folderName: string,
     file: Express.Multer.File,
-    parentFolderId: string = '1FPRL891brqHsAedXCun9_TIprnLiiBvZ',
+    parentFolderId: string,
   ): Promise<string> {
     try {
       // Step 1: Check if the folder exists
@@ -99,7 +99,7 @@ export class DriveService {
 
   async listFolderContents(
     folderName: string,
-    parentFolderId: string = '1FPRL891brqHsAedXCun9_TIprnLiiBvZ',
+    parentFolderId: string,
   ): Promise<any[]> {
     try {
       const folderId = await this.getFolderId(folderName, parentFolderId);
@@ -126,7 +126,7 @@ export class DriveService {
   async deleteFile(
     folderName: string,
     fileName: string,
-    parentFolderId: string = '1FPRL891brqHsAedXCun9_TIprnLiiBvZ',
+    parentFolderId: string,
   ): Promise<void> {
     try {
       const folderId = await this.getFolderId(folderName, parentFolderId);
@@ -156,7 +156,7 @@ export class DriveService {
     folderName: string,
     oldFileName: string,
     newFileName: string,
-    parentFolderId: string = '1FPRL891brqHsAedXCun9_TIprnLiiBvZ',
+    parentFolderId: string,
   ): Promise<void> {
     try {
       // Step 1: Get the folder ID

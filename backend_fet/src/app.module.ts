@@ -7,6 +7,9 @@ import { ProgramModule } from './program/program.module';
 import { CourseModule } from './course/course.module';
 import { ProgramYearModule } from './program-year/program-year.module';
 import { DriveModule } from './drive/drive.module';
+import { FiletwoModule } from './filetwo/filetwo.module';
+import { FilethreeModule } from './filethree/filethree.module';
+import { FilefourModule } from './filefour/filefour.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,7 +23,7 @@ dotenv.config();
     database: process.env.DBNAME,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  }),UserModule, ProgramModule, CourseModule, ProgramYearModule, DriveModule],
+  }),UserModule, ProgramModule, CourseModule, ProgramYearModule, DriveModule, FiletwoModule, FilethreeModule, FilefourModule],
   controllers: [AppController],
   providers: [AppService],
 })

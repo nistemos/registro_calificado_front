@@ -1,7 +1,8 @@
 // course.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 import { IsNotEmpty, IsString, IsNumber, Min } from 'class-validator';
 import { ProgramYear } from 'src/program-year/program-year.entity';
+import { FileTwo } from 'src/filetwo/filetwo.entity';
 
 @Entity()
 export class Course {
@@ -26,5 +27,9 @@ export class Course {
 
     @ManyToOne(() => ProgramYear, programYear => programYear.courses, { nullable: false })
     programsYear: ProgramYear | null;
+
+    @OneToMany(() => FileTwo, fileTwo => fileTwo.course, {nullable: true})
+    fileTwo: FileTwo[];
+
 
 }
